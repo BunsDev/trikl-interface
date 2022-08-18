@@ -30,7 +30,7 @@ const Header = () => {
           >
             <iframe
               src="https://my.spline.design/triklheroimagev1-127dc5ef121a0a4d8f0b91b18104d500/"
-              frameBorder="0"
+              frameborder="0"
               width="100%"
               height="100%"
             ></iframe>
