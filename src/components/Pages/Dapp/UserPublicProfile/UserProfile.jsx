@@ -17,8 +17,8 @@ const UserProfile = () => {
   const [membershipCount, setMembershipCount] = useState([]);
   const [isProcessingTx, setIsProcessingTx] = useState(false);
 
-  const currUrl = window.location.pathname;
-  const userNameFromUrl = currUrl.substring(6); // active creator's page Username
+  const currUrl = window.location.hash;
+  const userNameFromUrl = currUrl.substring(7); // active creator's page Username
 
   let currUserAddress = "0x0000000000000000000000000000000000000000";
   if (isAuthenticated) {
@@ -67,7 +67,7 @@ const UserProfile = () => {
   return (
     <div className="grid grid-cols-10 mx-auto py-20 pl-10 relative">
       {isProcessingTx ? (
-        <div className="absolute w-screen h-full flex items-center pl-20 gap-2 bg-black/80 backdrop-blur-sm z-40 text-left text-xl">
+        <div className="absolute w-screen h-screen flex items-center pl-20 gap-2 bg-black/80 backdrop-blur-sm z-40 text-left text-xl">
           <ClockLoader color="#4ee7ff" loading margin={0} size={40} />
           <span className="text-lightAccent pl-5">
             Transaction being processed! <br /> Please wait and DO NOT
