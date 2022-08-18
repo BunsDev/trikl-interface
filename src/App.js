@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { Moralis } from "moralis";
 
 /////// PAGES IMPORT ////////
@@ -18,7 +18,7 @@ function App() {
   Moralis.start({ serverUrl, appId });
 
   return (
-    <Router>
+    <HashRouter>
       <div className="App">
         <div className="content">
           <Routes>
@@ -35,7 +35,7 @@ function App() {
           </Routes>
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
