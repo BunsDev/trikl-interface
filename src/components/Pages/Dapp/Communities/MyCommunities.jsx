@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
-import { NavLink, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import EachCommunityCard from "./EachCommunityCard";
-import connectWalletImage from "../../../../assets/connect-wallet-image.svg";
+import connectWalletImage from "../../../../assets/connect-wallet-image.png";
 import "./CreatePost.css";
 import NoCommJoined from "./NoCommJoined";
 
@@ -57,7 +57,7 @@ const MyCommunities = () => {
       {isAuthenticated ? (
         <>
           <h2
-            className="text-4xl text-lightViolet font-semibold capitalize
+            className="text-4xl text-center text-lightViolet font-semibold capitalize
       w-full sticky top-0 z-50
       backdrop-blur-md mb-10 py-5"
           >

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import AnimatedBg from "../../../Others/AnimatedBg";
 import heroImage from "../../../../assets/trikl-hero-image.png";
 
 const Header = () => {

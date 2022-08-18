@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   useMoralis,
   useChain,
   useWeb3ExecuteFunction,
   useMoralisFile,
 } from "react-moralis";
-// import PageLoader from "../../../Elements/PageLoader";
 
 ////////////// MAIN FUNCTION //////////////
 

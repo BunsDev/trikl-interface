@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import { useMoralisFile, useMoralis } from "react-moralis";
 import PageLoader from "../../../Elements/PageLoader";
-import errorImage from "../../../../assets/error-image.svg";
 import "./CreatePost.css";
 import NotACreator from "./NotACreator";
 
@@ -110,14 +109,14 @@ const CreatePost = () => {
       )}
 
       <h2
-        className="text-4xl text-lightViolet font-semibold capitalize
+        className="text-4xl text-center text-lightViolet font-semibold capitalize
         w-full sticky top-0 z-50
         backdrop-blur-md py-5"
       >
         Share Something With Your Community!
       </h2>
-      {/* Form for creating envelope */}
 
+      {/* Form for creating envelope */}
       <form onSubmit={uploadPost} c className="grid grid-cols-12 pt-10 pb-20">
         <div className="col-span-2"></div>
         {/* left side */}

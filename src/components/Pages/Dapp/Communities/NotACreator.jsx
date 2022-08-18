@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import notCreatorImg from "../../../../assets/connect-wallet-image.svg";
+import notCreatorImg from "../../../../assets/connect-wallet-image.png";
 
 const NotACreator = () => {
   return (

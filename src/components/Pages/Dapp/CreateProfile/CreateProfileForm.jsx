@@ -43,7 +43,7 @@ const CreateProfileForm = () => {
       placeholder: "pseudoname, brand name, real name, or something you like",
       errorMessage: "Name should not contain any number or special characters.",
       label: "Name of Trikl Page",
-      pattern: "^[a-zA-Z_ ]{3,}$",
+      pattern: "^[a-zA-Z0-9_ ]{3,}$",
       required: true,
     },
     {
@@ -75,9 +75,8 @@ const CreateProfileForm = () => {
       type: "url",
       TagType: "input",
       placeholder: "Link your twitter profile",
-      errorMessage: "Should be a valid url.",
       label: "Twitter",
-      required: true,
+      required: false,
     },
     {
       id: "instagramLink",
@@ -85,9 +84,8 @@ const CreateProfileForm = () => {
       type: "url",
       TagType: "input",
       placeholder: "Link your instagram profile",
-      errorMessage: "Should be a valid url.",
       label: "Instagram",
-      required: true,
+      required: false,
     },
     {
       id: "youtubeLink",
@@ -95,9 +93,8 @@ const CreateProfileForm = () => {
       type: "url",
       TagType: "input",
       placeholder: "Link your youTube profile",
-      errorMessage: "Should be a valid url.",
       label: "YouTube",
-      required: true,
+      required: false,
     },
     {
       id: "userWalletAddress",
@@ -232,7 +229,7 @@ const CreateProfileForm = () => {
   ) : (
     <form onSubmit={uploadUser} className="w-full mx-auto py-10">
       <h2
-        className="text-4xl text-lightViolet font-semibold capitalize
+        className="text-4xl text-center text-lightViolet font-semibold capitalize
         w-full sticky top-0 z-50
         backdrop-blur-md py-5"
       >

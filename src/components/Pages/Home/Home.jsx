@@ -5,10 +5,8 @@ import Footer from "./HomeSections/Footer";
 import Navbar from "./HomeSections/Navbar";
 import Roadmap from "./HomeSections/Roadmap";
 import Team from "./HomeSections/Team";
-//import TryNow from "./HomeSections/TryNow";
-import Header from "./HomeSections/Header";
-
 import TryNow from "./HomeSections/TryNow";
+import Header from "./HomeSections/Header";
 
 const Home = () => {
   return (

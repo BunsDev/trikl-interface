@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import errorImage from "../../../assets/error-image.svg";
+import errorImage from "../../../assets/error-image.png";
 import "./ErrorPage.css";
 
 const ErrorPage = () => {
