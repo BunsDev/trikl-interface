@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Link } from "react-scroll";
 import { animateScroll as scroll } from "react-scroll";
-import { useMoralis } from "react-moralis";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 import { FiMenu } from "react-icons/fi";
@@ -14,21 +13,6 @@ const Navbar = () => {
     { name: "Team", link: "team" },
     { name: "Contact", link: "contact" },
   ];
-
-  const { authenticate, isAuthenticated, user, logout, Moralis } = useMoralis();
-
-  const login = async () => {
-    if (!isAuthenticated) {
-      await authenticate({ signingMessage: "Log in to Trikl" });
-      await Moralis.enableWeb3()
-        .then(function (user) {
-          console.log("logged in user:", user);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
 
   // Responsive Menu Bar
   const [isNavVisible, setIsNavVisible] = useState(false);
