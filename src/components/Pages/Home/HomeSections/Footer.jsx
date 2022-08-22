@@ -145,7 +145,7 @@ const Footer = () => {
 
       <div className="">
         <img
-          className="h-[20rem] md:h-[40rem] w-full object-cover"
+          className="h-[20rem] md:h-[40rem] w-full object-cover object-top"
           src={TriklBuildings}
           alt="Trikl Buildings"
         />
