@@ -7,6 +7,8 @@ import Roadmap from "./HomeSections/Roadmap";
 import Team from "./HomeSections/Team";
 import TryNow from "./HomeSections/TryNow";
 import Header from "./HomeSections/Header";
+import PoweredBy from "./HomeSections/PoweredBy";
+import BackedBy from "./HomeSections/BackedBy";
 
 const Home = () => {
   return (
@@ -15,11 +17,18 @@ const Home = () => {
       <div id="header">
         <Header />
       </div>
+
       <div id="about">
         <About />
       </div>
       <div id="tryNow">
         <TryNow />
+      </div>
+      <div id="backedBy">
+        <BackedBy />
+      </div>
+      <div id="poweredBy">
+        <PoweredBy />
       </div>
       <div id="roadmap">
         <Roadmap />
