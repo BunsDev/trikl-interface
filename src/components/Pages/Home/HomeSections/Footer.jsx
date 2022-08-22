@@ -2,59 +2,15 @@ import React from "react";
 import TriklBuildings from "../../../../assets/trikl-buildings.svg";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { useMoralis, useMoralisFile } from "react-moralis";
 import { useState } from "react";
 import { ClockLoader } from "react-spinners";
 import Confetti from "react-dom-confetti";
+import axios from "axios";
 
 const Footer = () => {
   const [emailValue, setEmailValue] = useState("");
   const [savingInProgress, setSavingInProgress] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const { Moralis } = useMoralis();
-  const { saveFile } = useMoralisFile();
-
-  // Creating Object
-  const SaveWaitlistUser = Moralis.Object.extend("WaitlistEmails");
-  // Create a new instance of that class
-  const waitlist = new SaveWaitlistUser();
-
-  // uploading file to IPFS
-  const uploadEmail = async (event) => {
-    event.preventDefault();
-    setSavingInProgress(true);
-    //creating metadata to store on ipfs
-    const metadata = {
-      emailValue,
-    };
-
-    try {
-      const result = await saveFile(
-        "newUserWaitlist.json",
-        { base64: btoa(JSON.stringify(metadata)) },
-        {
-          type: "base64",
-          saveIPFS: true,
-        }
-      );
-      const dataLink = result.ipfs();
-      let response = await fetch(dataLink);
-      let ipfsData = await response.json();
-
-      waitlist.set("WaitlistUserEmail", ipfsData.emailValue);
-
-      await waitlist.save();
-
-      setSavingInProgress(false);
-      setIsSaved(true);
-
-      setTimeout(() => {
-        setIsSaved(false);
-      }, 2000);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
 
   // CONFETTI
   const confettiConfig = {
@@ -71,12 +27,40 @@ const Footer = () => {
     colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSavingInProgress(true);
+    const data = {
+      Email: emailValue,
+    };
+
+    await axios({
+      method: "POST",
+      url: "https://sheet.best/api/sheets/6e10ded0-8c95-4764-82fd-6023fc46b3c2",
+      data: data,
+    })
+      .then(() => {
+        setSavingInProgress(false);
+        setIsSaved(true);
+        setEmailValue("");
+
+        setTimeout(() => {
+          setIsSaved(false);
+        }, 2000);
+        console.log("Done");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
   return (
     <div className="mx-auto text-center">
       <header className="mx-auto text-center w-[85vw] md:w-2/3 pb-28">
         <h2 className="text-xl text-left text-lightViolet font-semibold relative pb-10">
           Contact Us
         </h2>
+
         <div className="bg-black/30 rounded-2xl py-20 flex flex-col gap-5 text-xl">
           <div className="px-5 md:px-20">
             <h4 className="text-3xl md:text-4xl text-lightAccent pb-5 md:pb-20">
@@ -86,12 +70,13 @@ const Footer = () => {
             <ul className="flex flex-col gap-5 justify-center">
               <li>
                 <form
+                  id="waitlistForm_db"
                   className="flex flex-col md:flex-row gap-5 w-full justify-center py-5 md:py-0"
-                  onSubmit={uploadEmail}
+                  onSubmit={handleSubmit}
                 >
                   <input
                     type="email"
-                    name="email"
+                    name="data[email]"
                     value={emailValue}
                     onChange={(e) => setEmailValue(e.target.value)}
                     className="w-full h-12 md:h-auto text-center rounded-lg text-darkestBlue"
