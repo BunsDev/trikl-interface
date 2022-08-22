@@ -1,0 +1,10 @@
+#editingPreview li {
+  margin-left: 25px;
+  list-style-type: disc;
+}
+
+#editingPreview li,
+#editingPreview div,
+#editingPreview p {
+  margin-bottom: 1rem;
+}

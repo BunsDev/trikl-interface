@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import PageLoader from "../../../Elements/PageLoader";
 import AlreadyACreator from "./AlreadyACreator";
 import FormInput from "./FormInput";
+import AboutMessageBox from "./AboutMessageBox";
+import WhyJoinEditor from "./WhyJoinEditor";
 
 const CreateProfileForm = () => {
   // Import Moralis Functions
@@ -21,6 +23,9 @@ const CreateProfileForm = () => {
   const [isCurrCreator, setIsCurrCreator] = useState(false);
 
   ////////////// basic form controls //////////////
+
+  const [aboutMsg, setAboutMsg] = useState("");
+  const [whyJoin, setWhyJoin] = useState("");
 
   const [values, setValues] = useState({
     userAlias: "",
@@ -137,7 +142,12 @@ const CreateProfileForm = () => {
   ];
 
   const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: [e.target.value] });
+    setValues({
+      ...values,
+      [e.target.name]: [e.target.value],
+      // userMessage: aboutMsg,
+      // whySubMsg: whyJoin,
+    });
   };
   ////////////// basic form controls //////////////
 
@@ -177,7 +187,16 @@ const CreateProfileForm = () => {
     // const userMessageArray = userMessage.split();
 
     //creating metadata to store on ipfs
-    const metadata = values;
+    // const metadata = values;
+
+    const metadata = {
+      ...values,
+      userMessage: aboutMsg,
+      whySubMsg: whyJoin,
+    };
+
+    // console.log("values == > ", whyJoin);
+    // console.log("metata == > ", metadata);
 
     try {
       const result = await saveFile(
@@ -202,12 +221,12 @@ const CreateProfileForm = () => {
         //Setting up the creator row
         creator.set("Alias", ipfsData.userAlias[0]);
         creator.set("Username", ipfsData.username[0]);
-        creator.set("Message", ipfsData.userMessage[0]);
+        creator.set("Message", ipfsData.userMessage);
         creator.set("Twitter_Link", ipfsData.twitterLink[0]);
         creator.set("Instagram_Link", ipfsData.instagramLink[0]);
         creator.set("Youtube_Link", ipfsData.youtubeLink[0]);
         creator.set("Membership_charges", ipfsData.membershipCharges[0]);
-        creator.set("Why_Message", ipfsData.whySubMsg[0]);
+        creator.set("Why_Message", ipfsData.whySubMsg);
         creator.set("Creator_Address", ipfsData.userWalletAddress);
 
         creator.save();
@@ -237,7 +256,7 @@ const CreateProfileForm = () => {
       </h2>
 
       {portfolioCreationInProgress ? (
-        <div className="absolute top-0 left-0 w-screen h-full bg-black/90">
+        <div className="absolute top-0 z-50 left-0 w-screen h-full bg-black/90">
           <PageLoader />
         </div>
       ) : (
@@ -266,12 +285,19 @@ const CreateProfileForm = () => {
               onChange={onChange}
             />
           </div>
-          <FormInput
+          {/* <FormInput
             key={inputs[2].id}
             {...inputs[2]}
             value={values[inputs[2].name]}
             onChange={onChange}
-          />
+          /> */}
+
+          <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+            <label className="text-lightViolet text-base tracking-widest font-light">
+              {inputs[2].label}
+            </label>
+            <AboutMessageBox aboutMsg={aboutMsg} setAboutMsg={setAboutMsg} />
+          </div>
 
           <div className="flex gap-10">
             <FormInput
@@ -313,12 +339,18 @@ const CreateProfileForm = () => {
             value={values[inputs[7].name]}
             onChange={onChange}
           />
-          <FormInput
+          {/* <FormInput
             key={inputs[8].id}
             {...inputs[8]}
             value={values[inputs[8].name]}
             onChange={onChange}
-          />
+          /> */}
+          <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+            <label className="text-lightViolet text-base tracking-widest font-light">
+              {inputs[8].label}
+            </label>
+            <WhyJoinEditor whyJoin={whyJoin} setWhyJoin={setWhyJoin} />
+          </div>
           <button
             type="submit"
             className="bg-gradient-to-tr from-violetAccent to-blueAccent

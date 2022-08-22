@@ -1,3 +1,4 @@
+import parse from "html-react-parser";
 import React, { useEffect } from "react";
 import {
   useMoralis,
@@ -5,6 +6,7 @@ import {
   useWeb3ExecuteFunction,
   useMoralisFile,
 } from "react-moralis";
+import "./UserProfile.css";
 
 ////////////// MAIN FUNCTION //////////////
 
@@ -171,7 +173,7 @@ const MembershipCard = ({
   }
 
   return (
-    <div className="py-10 px-10">
+    <div className="py-10 px-10 text-center">
       <h3 className="text-lightViolet text-2xl">Become A Member</h3>
 
       <div className="py-5">
@@ -207,13 +209,14 @@ const MembershipCard = ({
 
       {/* why join */}
       <div className="text-left text-base text-gray-400 font-light border-t-2 border-lightViolet/20">
-        <p className="pb-5 pt-8 text-lg text-lightViolet">
-          Exclusive Offerings for members
+        <p className="pb-5 pt-8 text-lg text-center text-lightViolet">
+          Membership Benefits
         </p>
 
-        <ul className="list-disc flex flex-col gap-3">
-          <li>{userInfo.Why_Message}</li>
-        </ul>
+        <div id="editingPreview">
+          {/* {userInfo.Why_Message} */}
+          {parse("" + userInfo.Why_Message)}
+        </div>
       </div>
     </div>
   );

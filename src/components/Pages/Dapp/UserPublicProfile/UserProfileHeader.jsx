@@ -2,6 +2,8 @@ import React from "react";
 
 import Avatar from "boring-avatars";
 import AvatarColors from "../../../ImportHelpers/AvatarColors";
+import parse from "html-react-parser";
+import "./UserProfile.css";
 
 // React-icons
 import { BsTwitter, BsYoutube } from "react-icons/bs";
@@ -29,7 +31,7 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
         </div>
 
         {/* social links */}
-        <ul className="flex justify-between text-2xl items-center gap-2 text-gray-400 border-b-2 border-t-2 border-lightViolet/20">
+        <ul className="flex justify-between text-2xl text-center items-center gap-2 text-gray-400 border-b-2 border-t-2 border-lightViolet/20">
           {/* spacer */}
           <li className="py-1 w-1/2 ease-in-out duration-300">
             <p className="text-lg font-semibold text-lightViolet">
@@ -63,9 +65,12 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
         <div className="pb-2 text-lightViolet text-2xl">
           About {userInfo.Username}
         </div>
-        <p className="font-light text-justify text-base text-gray-400">
-          {userInfo.Message}
-        </p>
+        <div
+          id="editingPreview"
+          className="font-light text-justify text-base text-gray-400"
+        >
+          {parse("" + userInfo.Message)}
+        </div>
       </aside>
     </div>
   );

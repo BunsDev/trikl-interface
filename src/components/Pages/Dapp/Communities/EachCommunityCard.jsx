@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { NavLink } from "react-router-dom";
 import AvatarColors from "../../../ImportHelpers/AvatarColors";
+import parse from "html-react-parser";
 
 const EachCommunityCard = ({ eachCreator }) => {
   const [membershipCount, setMembershipCount] = useState([]);
@@ -23,6 +24,11 @@ const EachCommunityCard = ({ eachCreator }) => {
 
     setMembershipCount(count);
   };
+
+  const cardDescriptionHTML = eachCreator.attributes.Message;
+  let tmp = document.createElement("DIV");
+  tmp.innerHTML = cardDescriptionHTML;
+  const cleanDescription = tmp.textContent || tmp.innerText || "";
 
   return (
     <div
@@ -46,9 +52,7 @@ const EachCommunityCard = ({ eachCreator }) => {
           </sub>
         </div>
       </div>
-      <p className="text-left py-5">
-        {eachCreator.attributes.Message.substring(0, 90)} ...
-      </p>
+      <p className="text-left py-5">{cleanDescription.substring(0, 90)} ...</p>
 
       <div className="flex items-center gap-10">
         <NavLink
