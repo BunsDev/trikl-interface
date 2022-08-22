@@ -1,22 +1,9 @@
 import React from "react";
 import { Link } from "react-scroll";
-import { useMoralis } from "react-moralis";
 import { MdOutlineOpenInNew } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 const TryNow = () => {
-  const { authenticate, isAuthenticated, user, logout, Moralis } = useMoralis();
-
-  const login = async () => {
-    if (!isAuthenticated) {
-      await authenticate({ signingMessage: "Log in using Moralis" });
-      await Moralis.enableWeb3()
-      .catch(function (error) {
-        console.log(error);
-      });
-    }
-  };
-
   return (
     <div className="mx-auto text-center w-[85vw] md:w-2/3 pb-10">
       <header>
