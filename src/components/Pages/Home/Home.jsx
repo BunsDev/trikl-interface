@@ -9,6 +9,7 @@ import TryNow from "./HomeSections/TryNow";
 import Header from "./HomeSections/Header";
 import PoweredBy from "./HomeSections/PoweredBy";
 import BackedBy from "./HomeSections/BackedBy";
+import ProductDemo from "./HomeSections/ProductDemo";
 
 const Home = () => {
   return (
@@ -20,6 +21,9 @@ const Home = () => {
 
       <div id="about">
         <About />
+      </div>
+      <div id="productDemo">
+        <ProductDemo />
       </div>
       <div id="tryNow">
         <TryNow />

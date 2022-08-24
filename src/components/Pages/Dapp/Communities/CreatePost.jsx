@@ -4,6 +4,7 @@ import { useMoralisFile, useMoralis } from "react-moralis";
 import PageLoader from "../../../Elements/PageLoader";
 import "./CreatePost.css";
 import NotACreator from "./NotACreator";
+import CreatePostEditor from "./CreatePostEditor";
 
 const CreatePost = () => {
   // Import Moralis Functions
@@ -21,7 +22,9 @@ const CreatePost = () => {
   const [isCreator, setIsCreator] = useState(false); /////////////////////
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [currUsername, setCurrUsername] = useState("");
+  const [descriptionFromEditor, setDescriptionFromEditor] = useState("");
   const userWalletAddress = isAuthenticated
     ? currentUser.attributes.ethAddress
     : "";
@@ -56,13 +59,32 @@ const CreatePost = () => {
   const uploadPost = async (event) => {
     event.preventDefault();
     //creating metadata to store on ipfs
+
     setPostingInProgress(true);
+
+    let embeddingUrl;
+    const longLinkReplacement = videoUrl.replace("watch?v=", "embed/");
+    const shortLinkReplacement = videoUrl.replace(
+      "youtu.be/",
+      "www.youtube.com/embed/"
+    );
+
+    if (longLinkReplacement.includes("embed")) {
+      embeddingUrl = longLinkReplacement;
+    } else {
+      embeddingUrl = shortLinkReplacement;
+    }
+
     const metadata = {
       title,
-      description,
+      description: descriptionFromEditor,
+      videoUrl,
+      embeddingUrl,
       userWalletAddress,
       currUsername,
     };
+
+    console.log(metadata);
 
     try {
       const result = await saveFile(
@@ -79,6 +101,8 @@ const CreatePost = () => {
 
       post.set("Title", ipfsData.title);
       post.set("Description", ipfsData.description);
+      post.set("VideoUrl", ipfsData.videoUrl);
+      post.set("EmbedUrl", ipfsData.embeddingUrl);
       post.set("CreatorAddress", ipfsData.userWalletAddress);
       post.set("Username", ipfsData.currUsername);
 
@@ -101,7 +125,7 @@ const CreatePost = () => {
   return isAuthenticated && isCreator ? (
     <div>
       {postingInProgress ? (
-        <div className="absolute top-0 left-0 w-screen h-full bg-black/90">
+        <div className="absolute z-50 top-0 left-0 w-screen h-full bg-black/90">
           <PageLoader />
         </div>
       ) : (
@@ -110,7 +134,7 @@ const CreatePost = () => {
 
       <h2
         className="text-4xl text-center text-lightViolet font-semibold capitalize
-        w-full sticky top-0 z-50
+        w-full sticky top-0 z-40
         backdrop-blur-md py-5"
       >
         Share Something With Your Community!
@@ -147,17 +171,31 @@ const CreatePost = () => {
             >
               Add some helpful details
             </label>
-            <textarea
+            <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+              <CreatePostEditor
+                descriptionFromEditor={descriptionFromEditor}
+                setDescriptionFromEditor={setDescriptionFromEditor}
+              />
+            </div>
+          </div>
+
+          <div className="w-full flex flex-col gap-2 text-left">
+            <label
+              htmlFor="videoLink"
+              className="text-lightViolet text-base tracking-widest font-light"
+            >
+              Add a YouTube Video Link
+            </label>
+            <input
+              type="url"
               className="rounded-lg text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg p-2 bg-transparent border-[1px] border-gray-700"
-              placeholder="Describe your message here. People love to hear from their community leaders."
-              id="userMessage"
-              cols="30"
+              placeholder="Add an unlisted video link for your exclusive community members"
+              id="videoLink"
               required
-              rows="10"
-              name={description}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+              name="videoLink"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+            />
           </div>
 
           <div className="w-full flex flex-col gap-2 text-left">

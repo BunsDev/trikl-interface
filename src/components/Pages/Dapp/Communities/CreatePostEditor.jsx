@@ -1,8 +1,8 @@
-import React, { Component, useState } from "react";
+import React, { Children, Component, useState } from "react";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import "./TextEditorStyle.css";
+import "../CreateProfile/TextEditorStyle.css";
 
 // TOOLBAR ICONS
 import boldIcon from "../../../../assets/bold-icon.png";
@@ -14,24 +14,29 @@ import centerAlignIcon from "../../../../assets/center-align-icon.png";
 import colorIcon from "../../../../assets/color-icon.png";
 import imageIcon from "../../../../assets/image-icon.png";
 
-const TextEditor = ({ aboutMsg, setAboutMsg }) => {
+const CreatePostEditor = ({
+  descriptionFromEditor,
+  setDescriptionFromEditor,
+}) => {
   let editorState = EditorState.createEmpty();
-  const [description, setDescription] = useState(editorState);
+  const [descriptionEditBox, setDescriptionEditBox] = useState(editorState);
   const onEditorStateChange = (editorState) => {
-    setDescription(editorState);
+    setDescriptionEditBox(editorState);
   };
 
-  setAboutMsg(draftToHtml(convertToRaw(description.getCurrentContent())));
+  setDescriptionFromEditor(
+    draftToHtml(convertToRaw(descriptionEditBox.getCurrentContent()))
+  );
 
   return (
     <div className="w-full mx-auto text-left h-[20rem] flex flex-col gap-10">
       <Editor
-        editorState={description}
+        editorState={descriptionEditBox}
         toolbar={{
           options: [
             "inline",
             "blockType",
-            "fontSize",
+            // "fontSize",
             "list",
             "textAlign",
             // "colorPicker",
@@ -55,7 +60,7 @@ const TextEditor = ({ aboutMsg, setAboutMsg }) => {
             dropdownClassName: undefined,
           },
           fontSize: {
-            options: [8, 9, 10, 11, 12, 14, 16, 18, 20],
+            options: [8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 30],
             className: undefined,
             component: undefined,
             dropdownClassName: undefined,
@@ -137,10 +142,10 @@ const TextEditor = ({ aboutMsg, setAboutMsg }) => {
       />
 
       {/* <div id="editingPreview" className="flex flex-col gap-5">
-        {parse(draftToHtml(convertToRaw(description.getCurrentContent())))}
-      </div> */}
+          {parse(draftToHtml(convertToRaw(descriptionEditBox.getCurrentContent())))}
+        </div> */}
     </div>
   );
 };
 
-export default TextEditor;
+export default CreatePostEditor;

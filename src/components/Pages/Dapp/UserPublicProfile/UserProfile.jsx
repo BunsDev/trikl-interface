@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import UserProfileHeader from "./UserProfileHeader";
-import { useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import MembershipCard from "./MembershipCard";
 import JoiningError from "./JoiningError";
 import UserPostFeed from "./UserPostFeed";
 import PageLoader from "../../../Elements/PageLoader";
 import { ClockLoader } from "react-spinners";
+import UserProfileNav from "./UserProfileNav";
+import UserTweetFeed from "./UserTweetFeed";
+import UserYouTubeFeed from "./UserYouTubeFeed";
+import UserInstaFeed from "./UserInstaFeed";
 
 /////////////// MAIN FUNCTION ///////////////
 const UserProfile = () => {
@@ -55,12 +59,16 @@ const UserProfile = () => {
     }
   };
 
+  // Nav links
+  const [activeUserTab, setActiveUserTab] = useState("");
+
   useEffect(() => {
     setIsLoading(true);
     setTimeout(async () => {
       await getQuery();
       await getMembership();
       setIsLoading(false);
+      setActiveUserTab("exclusivePost");
     }, 10);
   }, []);
 
@@ -96,12 +104,33 @@ const UserProfile = () => {
             <UserProfileHeader
               userInfo={userInfo}
               membershipCount={membershipCount}
+              activeUserTab={activeUserTab}
             />
-            <UserPostFeed
-              userNameFromUrl={userNameFromUrl}
-              isJoinedMember={isJoinedMember}
-              isCurrCreator={isCurrCreator}
+            <UserProfileNav
+              activeUserTab={activeUserTab}
+              setActiveUserTab={setActiveUserTab}
             />
+
+            {activeUserTab === "exclusiveFeed" ? (
+              <UserPostFeed
+                userNameFromUrl={userNameFromUrl}
+                isJoinedMember={isJoinedMember}
+                isCurrCreator={isCurrCreator}
+              />
+            ) : activeUserTab === "tweetFeed" ? (
+              <UserTweetFeed />
+            ) : (
+              ""
+            )}
+
+            {/* <Outlet
+              context={[
+                userInfo,
+                userNameFromUrl,
+                isJoinedMember,
+                isCurrCreator,
+              ]}
+            /> */}
           </section>
 
           <aside className="col-span-3 sticky top-10 bg-black/30 rounded-xl h-max overflow-hidden">

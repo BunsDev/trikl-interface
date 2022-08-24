@@ -16,3 +16,7 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.active {
+  color: #4ee7ff;
+}
