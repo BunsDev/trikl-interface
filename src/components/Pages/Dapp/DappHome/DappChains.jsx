@@ -16,41 +16,65 @@ const menuItems = [
 ];
 
 const DappChains = () => {
-  // const { switchNetwork, chainId, chain } = useChain();
-  // const { isAuthenticated } = useMoralis();
-  // const [selected, setSelected] = useState({});
+  const { isAuthenticated, Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
 
-  // console.log("chain", chain);
+  const { chainId } = useChain();
 
-  // useEffect(() => {
-  //   if (!chainId) return "not connected";
-  //   const newSelected = menuItems.find((item) => item.key === chainId);
-  //   setSelected(newSelected);
-  //   console.log("current chainId: ", chainId);
-  // }, [chainId]);
+  const [isMainnet, setIsMainnet] = useState(true);
 
-  // const handleMenuClick = (e) => {
-  //   console.log("switch to: ", e.key);
-  //   switchNetwork(e.key);
-  // };
+  const switchNetworkFunc = async () => {
+    try {
+      if (isMainnet) {
+        await Moralis.switchNetwork(menuItems[0].key);
+      } else if (!isMainnet) {
+        await Moralis.switchNetwork(menuItems[1].key);
+      }
+    } catch (error) {
+      setIsMainnet((prev) => !prev);
+    }
+  };
 
-  // const menu = (
-  // <Menu onClick={handleMenuClick}>
-  //   {menuItems.map((item) => (
-  //     <Menu.Item key={item.key} icon={item.icon} style={styles.item}>
-  //       <span style={{ marginLeft: "5px" }}>{item.value}</span>
-  //     </Menu.Item>
-  //   ))}
-  // </Menu>
-  // );
-
-  // if (!chainId || !isAuthenticated) return null;
+  useEffect(() => {
+    console.log("Is Mainnet ---> ", isMainnet);
+    (async () => {
+      if (!isWeb3Enabled) {
+        await enableWeb3();
+      }
+    })();
+    switchNetworkFunc();
+  }, [isMainnet]);
 
   return (
-    <div className="flex flex-col gap-1 items-start text-left py-5">
-      <div>Select Network</div>
-      <button>Mainnet</button>
-      <button>Testnet</button>
+    <div className="flex flex-col gap-1 items-start text-left pb-10">
+      <div className="text-sm text-lightViolet">Switch Network</div>
+      <label
+        htmlFor="isMainnet"
+        className="relative bg-transparent border-[1px] border-gray-700 w-36 h-8 rounded-full cursor-pointer"
+      >
+        <input
+          type="checkbox"
+          name="isMainnet"
+          id="isMainnet"
+          value={isMainnet}
+          onChange={(e) => setIsMainnet(e.target.checked)}
+          className="sr-only peer"
+        />
+
+        <span
+          className={`h-4/5 aspect-square absolute rounded-full top-1 left-1 transition-all duration-300
+          ${isMainnet ? "bg-lightAccent" : "bg-lightViolet"}`}
+        ></span>
+
+        {/* <span className="h-4/5 aspect-square opacity-0 bg-lightAccent absolute rounded-full top-1 right-1 peer-checked:opacity-100 transition-all duration-300"></span> */}
+
+        <span
+          className={`absolute top-1 left-10 min-w-max transition-all duration-300 ${
+            isMainnet ? "text-lightAccent" : "text-lightViolet"
+          }`}
+        >
+          {isMainnet ? "Mainnet" : "Testnet"}
+        </span>
+      </label>
     </div>
   );
 };

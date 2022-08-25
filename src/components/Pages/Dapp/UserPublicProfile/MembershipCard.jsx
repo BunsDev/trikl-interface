@@ -41,18 +41,18 @@ const MembershipCard = ({
     };
   }, []);
 
-  // 🆗 Ship it
-  useEffect(() => {
-    (async () => {
-      if (!isWeb3Enabled) {
-        await enableWeb3();
-      }
-    })();
+  // // 🆗 Ship it
+  // useEffect(() => {
+  //   (async () => {
+  //     if (!isWeb3Enabled) {
+  //       await enableWeb3();
+  //     }
+  //   })();
 
-    return () => {
-      // this now gets called when the component unmounts
-    };
-  }, []);
+  //   return () => {
+  //     // this now gets called when the component unmounts
+  //   };
+  // }, []);
 
   const current = new Date();
   let date = `${current.getDate()}/${
