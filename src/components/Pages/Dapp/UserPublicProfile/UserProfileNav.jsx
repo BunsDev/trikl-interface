@@ -8,7 +8,6 @@ const UserProfileNav = ({ activeUserTab, setActiveUserTab }) => {
     <div className="flex w-full justify-between text-center bg-black/30 rounded-lg mt-8 text-lightViolet">
       <button
         onClick={() => setActiveUserTab("exclusiveFeed")}
-        // to="/dapp/user5/posts"
         className={`w-full min-w-max p-3 rounded-lg text-sm uppercase tracking-widest hover:text-lightAccent hover:underline hover:underline-offset-8 ease-in-out duration-300 ${
           activeUserTab === "exclusiveFeed" ? "text-lightAccent" : ""
         }`}
@@ -16,11 +15,18 @@ const UserProfileNav = ({ activeUserTab, setActiveUserTab }) => {
         Member Posts
       </button>
       <button
+        onClick={() => setActiveUserTab("publicFeed")}
+        className={`w-full min-w-max p-3 rounded-lg text-sm uppercase tracking-widest hover:text-lightAccent hover:underline hover:underline-offset-8 ease-in-out duration-300 ${
+          activeUserTab === "publicFeed" ? "text-lightAccent" : ""
+        }`}
+      >
+        Public Feed
+      </button>
+      <button
         onClick={() => setActiveUserTab("tweetFeed")}
         className={`w-full min-w-max p-3 rounded-lg text-sm uppercase tracking-widest hover:text-lightAccent hover:underline hover:underline-offset-8 ease-in-out duration-300 ${
           activeUserTab === "tweetFeed" ? "text-lightAccent" : ""
         }`}
-        // to="/dapp/user5/tweets"
       >
         Tweets
       </button>

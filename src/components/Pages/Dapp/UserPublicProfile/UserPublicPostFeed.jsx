@@ -4,7 +4,11 @@ import parse from "html-react-parser";
 import { useOutletContext } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
-const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
+const UserPublicPostFeed = ({
+  userNameFromUrl,
+  isJoinedMember,
+  isCurrCreator,
+}) => {
   const { Moralis } = useMoralis();
   const [userPosts, setUserPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +23,7 @@ const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
   const getQueryForUserPost = async () => {
     const query = new Moralis.Query("Post");
     query.equalTo("Username", userNameFromUrl).find();
-    query.equalTo("IsPaid", "Paid").find();
+    query.equalTo("IsPaid", "Free").find();
     query.descending("createdAt");
     const response = await query.find();
     setUserPosts(response);
@@ -32,7 +36,7 @@ const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
   ) : (
     <div>
       <div className="py-10 text-lightViolet text-left text-xl">
-        Exclusive Member Only Posts
+        Public Feed
       </div>
 
       <EachPostCard
@@ -44,7 +48,7 @@ const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
   );
 };
 
-export default UserPostFeed;
+export default UserPublicPostFeed;
 
 ////////////// EACH POST CARD - AVAILABLE POSTS //////////////
 

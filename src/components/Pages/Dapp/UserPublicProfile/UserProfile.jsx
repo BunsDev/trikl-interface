@@ -11,6 +11,7 @@ import UserProfileNav from "./UserProfileNav";
 import UserTweetFeed from "./UserTweetFeed";
 import UserYouTubeFeed from "./UserYouTubeFeed";
 import UserInstaFeed from "./UserInstaFeed";
+import UserPublicPostFeed from "./UserPublicPostFeed";
 
 /////////////// MAIN FUNCTION ///////////////
 const UserProfile = () => {
@@ -119,18 +120,15 @@ const UserProfile = () => {
               />
             ) : activeUserTab === "tweetFeed" ? (
               <UserTweetFeed />
+            ) : activeUserTab === "publicFeed" ? (
+              <UserPublicPostFeed
+                userNameFromUrl={userNameFromUrl}
+                isJoinedMember={isJoinedMember}
+                isCurrCreator={isCurrCreator}
+              />
             ) : (
               ""
             )}
-
-            {/* <Outlet
-              context={[
-                userInfo,
-                userNameFromUrl,
-                isJoinedMember,
-                isCurrCreator,
-              ]}
-            /> */}
           </section>
 
           <aside className="col-span-3 sticky top-10 bg-black/30 rounded-xl h-max overflow-hidden">

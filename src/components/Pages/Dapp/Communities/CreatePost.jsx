@@ -21,16 +21,16 @@ const CreatePost = () => {
 
   const [isCreator, setIsCreator] = useState(false); /////////////////////
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [currUsername, setCurrUsername] = useState("");
   const [descriptionFromEditor, setDescriptionFromEditor] = useState("");
+  const [isPaid, setIsPaid] = useState(true);
+
   const userWalletAddress = isAuthenticated
     ? currentUser.attributes.ethAddress
     : "";
 
   //Setting wallet address
-
   useEffect(() => {
     if (isAuthenticated) {
       creatorsData.map((eachCreator) => {
@@ -75,12 +75,20 @@ const CreatePost = () => {
       embeddingUrl = shortLinkReplacement;
     }
 
+    let isPaidString;
+    if (isPaid) {
+      isPaidString = "Paid";
+    } else {
+      isPaidString = "Free";
+    }
+
     const metadata = {
       title,
       description: descriptionFromEditor,
       videoUrl,
       embeddingUrl,
       userWalletAddress,
+      isPaidString,
       currUsername,
     };
 
@@ -103,6 +111,7 @@ const CreatePost = () => {
       post.set("Description", ipfsData.description);
       post.set("VideoUrl", ipfsData.videoUrl);
       post.set("EmbedUrl", ipfsData.embeddingUrl);
+      post.set("IsPaid", ipfsData.isPaidString);
       post.set("CreatorAddress", ipfsData.userWalletAddress);
       post.set("Username", ipfsData.currUsername);
 
@@ -116,10 +125,6 @@ const CreatePost = () => {
     } catch (error) {
       alert(error.message);
     }
-  };
-
-  const ReloadFunction = () => {
-    window.location.reload();
   };
 
   return isAuthenticated && isCreator ? (
@@ -198,6 +203,8 @@ const CreatePost = () => {
             />
           </div>
 
+          <FreeOrPaidCheck isPaid={isPaid} setIsPaid={setIsPaid} />
+
           <div className="w-full flex flex-col gap-2 text-left">
             <button
               type="submit"
@@ -218,3 +225,32 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
+
+const FreeOrPaidCheck = ({ isPaid, setIsPaid }) => {
+  return (
+    <label
+      htmlFor="isPaid"
+      className="relative bg-transparent border-[1px] border-gray-700 w-40 h-10 rounded-full cursor-pointer"
+    >
+      <input
+        type="checkbox"
+        name="isPaid"
+        id="isPaid"
+        value={isPaid}
+        defaultChecked={isPaid}
+        onChange={(e) => setIsPaid(e.target.checked)}
+        className="sr-only peer"
+      />
+      <span className="h-4/5 aspect-square opacity-100 bg-lightViolet absolute rounded-full top-1 left-1 peer-checked:opacity-0 transition-all duration-300"></span>
+      <span className="h-4/5 aspect-square opacity-0 bg-lightAccent absolute rounded-full top-1 right-1 peer-checked:opacity-100 transition-all duration-300"></span>
+
+      <span
+        className={`absolute top-1 right-5 peer-checked:right-16 min-w-max transition-all duration-300 ${
+          isPaid ? "text-lightAccent" : "text-lightViolet"
+        }`}
+      >
+        {isPaid ? "Paid Post" : "Free Post"}
+      </span>
+    </label>
+  );
+};
