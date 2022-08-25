@@ -83,6 +83,10 @@ export default DappSidebar;
 const LogoutButton = () => {
   const { user, logout } = useMoralis();
 
+  const handleLogout = async () => {
+    await logout();
+    window.location.reload();
+  };
   return (
     <Popup
       trigger={
@@ -94,7 +98,7 @@ const LogoutButton = () => {
       position="right"
       closeOnDocumentClick
     >
-      <button onClick={() => logout()} className="pl-2 text-red-400">
+      <button onClick={handleLogout} className="pl-2 text-red-400">
         Logout
       </button>
     </Popup>
@@ -111,6 +115,7 @@ const LoginButton = () => {
       try {
         await authenticate({ signingMessage: "Log in to Trikl" });
         await Moralis.enableWeb3();
+        window.location.reload();
       } catch (error) {
         alert("Some Error occured: ", error);
       }

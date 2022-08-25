@@ -1,5 +1,5 @@
 import parse from "html-react-parser";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useMoralis,
   useWeb3ExecuteFunction,
@@ -74,7 +74,9 @@ const MembershipCard = ({
     try {
       const result = await saveFile(
         "newMember.json",
-        { base64: btoa(JSON.stringify(metadata)) },
+        {
+          base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
+        },
         {
           type: "base64",
           saveIPFS: true,
@@ -99,7 +101,9 @@ const MembershipCard = ({
     }
   };
 
+  const [joinDisabled, setJoinDisabled] = useState(false);
   async function handleClick({ userInfo }) {
+    setJoinDisabled(true);
     const creatorAddress = userInfo.Creator_Address;
     const creatorUsername = userInfo.Username;
     const membershipCharges = userInfo.Membership_charges;
@@ -160,6 +164,7 @@ const MembershipCard = ({
         setErrorMessage(msgOnError);
       },
     });
+    setJoinDisabled(false);
   }
 
   return (
@@ -190,6 +195,7 @@ const MembershipCard = ({
                hover:py-5
                  ease-in-out duration-500 
                  mx-auto my-5"
+            disabled={joinDisabled}
             onClick={() => handleClick({ userInfo })}
           >
             Join

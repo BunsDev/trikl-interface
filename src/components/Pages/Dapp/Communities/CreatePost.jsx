@@ -95,7 +95,9 @@ const CreatePost = () => {
     try {
       const result = await saveFile(
         "newPost.json",
-        { base64: btoa(JSON.stringify(metadata)) },
+        {
+          base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
+        },
         {
           type: "base64",
           saveIPFS: true,
@@ -128,7 +130,7 @@ const CreatePost = () => {
   return isAuthenticated && isCreator ? (
     <div>
       {postingInProgress ? (
-        <div className="absolute z-50 top-0 left-0 w-screen h-full bg-black/90">
+        <div className="absolute z-50 top-0 left-0 w-full h-full bg-black/90">
           <PageLoader />
         </div>
       ) : (

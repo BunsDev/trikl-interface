@@ -191,7 +191,10 @@ const CreateProfileForm = () => {
     try {
       const result = await saveFile(
         "mydata.json",
-        { base64: btoa(JSON.stringify(metadata)) },
+        //{ base64: window.btoa(JSON.stringify(metadata)) },
+        {
+          base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
+        },
         {
           type: "base64",
           saveIPFS: true,
