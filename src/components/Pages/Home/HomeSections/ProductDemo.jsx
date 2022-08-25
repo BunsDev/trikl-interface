@@ -9,9 +9,9 @@ const ProductDemo = () => {
       <h2 className="text-3xl md:text-4xl text-lightAccent capitalize">
         Watch it in action!
       </h2>
-      <div className="flex justify-center gap-5 md:py-10 text-lighGrey text-xl">
+      <div className="flex justify-center gap-5 pt-10 md:pb-10 text-lighGrey text-xl">
         <iframe
-          className="rounded-lg drop-shadow-lg h-[20rem] w-2/3"
+          className="rounded-lg drop-shadow-lg aspect-video w-full md:w-2/3"
           src="https://www.youtube.com/embed/aZwYzpvrx1I"
           title="Trikl - Product Demo"
           frameBorder="0"
