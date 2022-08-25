@@ -1,5 +1,6 @@
 import parse from "html-react-parser";
 import React, { useEffect } from "react";
+import { useState } from "react";
 import {
   useMoralis,
   useChain,
@@ -19,40 +20,32 @@ const MembershipCard = ({
   isCurrCreator,
   errorMessage,
   setErrorMessage,
+  network,
 }) => {
   const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated } = useMoralis();
   const { switchNetwork, chainId } = useChain();
   const contractProcessor = useWeb3ExecuteFunction();
   const { saveFile } = useMoralisFile();
-  const contractAddress = process.env.REACT_APP_TRIKL_SMART_CONTRACT;
+
+  let contractAddress;
+
+  if (network === 80001) {
+    contractAddress = process.env.REACT_APP_TRIKL_SMART_CONTRACT;
+  } else if (network === 137) {
+    contractAddress = process.env.REACT_APP_TRIKL_SMART_CONTRACT_MAINNET;
+  }
 
   useEffect(() => {
     (async () => {
       if (!isWeb3Enabled) {
         await enableWeb3();
       }
-      // if (chainId !== 0x13881) {
-      //   await switchNetwork(0x13881);
-      // }
     })();
 
     return () => {
       // this now gets called when the component unmounts
     };
   }, []);
-
-  // // 🆗 Ship it
-  // useEffect(() => {
-  //   (async () => {
-  //     if (!isWeb3Enabled) {
-  //       await enableWeb3();
-  //     }
-  //   })();
-
-  //   return () => {
-  //     // this now gets called when the component unmounts
-  //   };
-  // }, []);
 
   const current = new Date();
   let date = `${current.getDate()}/${
@@ -207,24 +200,18 @@ const MembershipCard = ({
         )}
       </div>
 
-      {/* why join */}
       <div className="text-left text-base text-gray-400 font-light border-t-2 border-lightViolet/20">
         <p className="pb-5 pt-8 text-lg text-center text-lightViolet">
           Membership Benefits
         </p>
 
-        <div id="editingPreview">
-          {/* {userInfo.Why_Message} */}
-          {parse("" + userInfo.Why_Message)}
-        </div>
+        <div id="editingPreview">{parse("" + userInfo.Why_Message)}</div>
       </div>
     </div>
   );
 };
 
 export default MembershipCard;
-
-// Rinkeby - 0x1f79d8a9B2F3AAFD87F75944b3F95D29a1BAd08C
 
 const LoginButton = () => {
   const { isAuthenticated, authenticate, Moralis } = useMoralis();

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import parse from "html-react-parser";
-import { useOutletContext } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
 const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
@@ -53,6 +52,7 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
 
   return (
     <div>
+      {userPosts.length === 0 ? <div>No Posts Available</div> : ""}
       {userPosts.map((eachPost) => (
         <div
           key={eachPost.id}

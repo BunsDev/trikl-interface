@@ -28,15 +28,7 @@ const TextEditor = ({ aboutMsg, setAboutMsg }) => {
       <Editor
         editorState={description}
         toolbar={{
-          options: [
-            "inline",
-            "blockType",
-            "fontSize",
-            "list",
-            "textAlign",
-            // "colorPicker",
-            "image",
-          ],
+          options: ["inline", "blockType", "list", "textAlign", "image"],
           inline: {
             inDropdown: false,
             className: undefined,

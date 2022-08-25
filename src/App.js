@@ -1,5 +1,6 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Moralis } from "moralis";
+import { MoralisProvider, useChain } from "react-moralis";
 
 /////// PAGES IMPORT ////////
 import Home from "./components/Pages/Home/Home";
@@ -16,11 +17,11 @@ import UserYouTubeFeed from "./components/Pages/Dapp/UserPublicProfile/UserYouTu
 import UserTweetFeed from "./components/Pages/Dapp/UserPublicProfile/UserTweetFeed";
 import UserInstaFeed from "./components/Pages/Dapp/UserPublicProfile/UserInstaFeed";
 
-function App() {
-  // const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
-  // const appId = process.env.REACT_APP_MORALIS_APPID;
+function App({ useUrl, useAppId, network }) {
+  const serverUrl = useUrl;
+  const appId = useAppId;
 
-  // Moralis.start({ serverUrl, appId });
+  Moralis.start({ serverUrl, appId });
 
   return (
     <HashRouter>
@@ -34,12 +35,7 @@ function App() {
               <Route path="explore" element={<AllCommunities />} />
               <Route path="my-communities" element={<MyCommunities />} />
               <Route path="create-profile" element={<CreateProfileForm />} />
-              <Route path=":id" element={<UserProfile />}>
-                <Route path="posts" element={<UserPostFeed />} />
-                <Route path="tweets" element={<UserTweetFeed />} />
-                <Route path="youtube" element={<UserYouTubeFeed />} />
-                <Route path="instagram" element={<UserInstaFeed />} />
-              </Route>
+              <Route path=":id" element={<UserProfile network={network} />} />
             </Route>
             <Route path="*" element={<ErrorPage />} />
           </Routes>

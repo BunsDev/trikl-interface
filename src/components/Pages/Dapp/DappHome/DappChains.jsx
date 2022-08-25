@@ -15,6 +15,7 @@ const DappChains = () => {
         return alert("Already on Mainnet");
       } else {
         await Moralis.switchNetwork(PolygonMainnetChainId);
+        window.location.reload();
       }
     } catch (error) {
       return alert(error);
@@ -27,6 +28,7 @@ const DappChains = () => {
         return alert("Already on Testnet");
       } else {
         await Moralis.switchNetwork(PolygonTestnetChainId);
+        window.location.reload();
       }
     } catch (error) {
       return;
@@ -60,8 +62,8 @@ const DappChains = () => {
             <img src={PolygonLogo} alt="" />
           </div>
         ) : (
-          "Switch To"
-        )}{" "}
+          "Switch To "
+        )}
         Mainnet
       </button>
       <button
@@ -77,7 +79,7 @@ const DappChains = () => {
             <img src={PolygonLogo} alt="" />
           </div>
         ) : (
-          "Switch To"
+          "Switch To "
         )}
         Mumbai
       </button>

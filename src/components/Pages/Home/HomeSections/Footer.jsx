@@ -47,7 +47,7 @@ const Footer = () => {
         setTimeout(() => {
           setIsSaved(false);
         }, 2000);
-        console.log("Done");
+        console.log("Saved");
       })
       .catch((error) => {
         alert(error.message);

@@ -33,15 +33,7 @@ const CreatePostEditor = ({
       <Editor
         editorState={descriptionEditBox}
         toolbar={{
-          options: [
-            "inline",
-            "blockType",
-            // "fontSize",
-            "list",
-            "textAlign",
-            // "colorPicker",
-            "image",
-          ],
+          options: ["inline", "blockType", "list", "textAlign", "image"],
           inline: {
             inDropdown: false,
             className: undefined,

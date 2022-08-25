@@ -9,12 +9,10 @@ import PageLoader from "../../../Elements/PageLoader";
 import { ClockLoader } from "react-spinners";
 import UserProfileNav from "./UserProfileNav";
 import UserTweetFeed from "./UserTweetFeed";
-import UserYouTubeFeed from "./UserYouTubeFeed";
-import UserInstaFeed from "./UserInstaFeed";
 import UserPublicPostFeed from "./UserPublicPostFeed";
 
 /////////////// MAIN FUNCTION ///////////////
-const UserProfile = () => {
+const UserProfile = ({ network }) => {
   const { Moralis, isAuthenticated } = useMoralis();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
@@ -141,6 +139,7 @@ const UserProfile = () => {
               setIsProcessingTx={setIsProcessingTx}
               errorMessage={errorMessage}
               setErrorMessage={setErrorMessage}
+              network={network}
             />
           </aside>
         </>

@@ -6,6 +6,7 @@ import AlreadyACreator from "./AlreadyACreator";
 import FormInput from "./FormInput";
 import AboutMessageBox from "./AboutMessageBox";
 import WhyJoinEditor from "./WhyJoinEditor";
+import WalletNotConnected from "../WalletNotConnected";
 
 const CreateProfileForm = () => {
   // Import Moralis Functions
@@ -195,9 +196,6 @@ const CreateProfileForm = () => {
       whySubMsg: whyJoin,
     };
 
-    // console.log("values == > ", whyJoin);
-    // console.log("metata == > ", metadata);
-
     try {
       const result = await saveFile(
         "mydata.json",
@@ -236,6 +234,7 @@ const CreateProfileForm = () => {
 
       setPortfolioCreationInProgress(false);
       navigate(`/dapp/${values.username}`);
+      window.location.reload();
     } catch (error) {
       alert(error.message);
     }
@@ -243,7 +242,9 @@ const CreateProfileForm = () => {
 
   //****************************** MAIN RETURN STATEMENT START HERE *****************************//
 
-  return isCurrCreator ? (
+  return !isAuthenticated ? (
+    <WalletNotConnected />
+  ) : isCurrCreator ? (
     <AlreadyACreator creatorUsername={creatorUsername} />
   ) : (
     <form onSubmit={uploadUser} className="w-full mx-auto py-10">
@@ -267,7 +268,7 @@ const CreateProfileForm = () => {
         <div className="col-span-2"></div>
 
         <div className="col-span-8 flex flex-col gap-8 py-10">
-          <div className="w-full text-xs tracking-widest text-lightViolet uppercase bg-black/20 py-2 my-4">
+          <div className="w-full text-center text-xs tracking-widest text-lightViolet uppercase bg-black/20 py-2 my-4">
             Personal Details
           </div>
 
@@ -329,7 +330,7 @@ const CreateProfileForm = () => {
             />
           </div>
 
-          <div className="w-full text-xs tracking-widest text-lightViolet uppercase bg-black/20 py-2 my-4">
+          <div className="w-full text-center text-xs tracking-widest text-lightViolet uppercase bg-black/20 py-2 my-4">
             Membership Details
           </div>
 

@@ -39,9 +39,6 @@ const DappSidebar = () => {
         </NavLink>
       </div>
 
-      {/* Icon List */}
-      {/* <div className="flex flex-col gap-10"> */}
-      {/* Join as a creator */}
       <div className="rounded-lg flex flex-col gap-2 pb-5">
         <p className="w-3/4 text-left text-sm text-lightViolet">
           Are you a web3 content Creator?
@@ -69,7 +66,6 @@ const DappSidebar = () => {
         </NavLink>
       ))}
 
-      {/* <div className="flex flex-col gap-2 items-start w-full"> */}
       <div>
         <DappChains />
       </div>
@@ -77,10 +73,7 @@ const DappSidebar = () => {
       <div className="font-semibold text-lg text-lightAccent cursor-pointer">
         {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       </div>
-
-      {/* </div> */}
     </div>
-    // </div>
   );
 };
 

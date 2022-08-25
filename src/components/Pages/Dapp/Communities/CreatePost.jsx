@@ -19,7 +19,7 @@ const CreatePost = () => {
   const [postingInProgress, setPostingInProgress] = useState(false);
   const navigate = useNavigate();
 
-  const [isCreator, setIsCreator] = useState(false); /////////////////////
+  const [isCreator, setIsCreator] = useState(false);
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [currUsername, setCurrUsername] = useState("");
@@ -194,7 +194,6 @@ const CreatePost = () => {
               className="rounded-lg text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg p-2 bg-transparent border-[1px] border-gray-700"
               placeholder="Add an unlisted video link for your exclusive community members"
               id="videoLink"
-              required
               name="videoLink"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}

@@ -5,7 +5,6 @@ import AvatarColors from "../../../ImportHelpers/AvatarColors";
 import parse from "html-react-parser";
 import "./UserProfile.css";
 
-// React-icons
 import { BsTwitter, BsYoutube } from "react-icons/bs";
 import { AiFillInstagram } from "react-icons/ai";
 
