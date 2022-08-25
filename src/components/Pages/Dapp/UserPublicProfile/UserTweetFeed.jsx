@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import "./UserProfile.css";

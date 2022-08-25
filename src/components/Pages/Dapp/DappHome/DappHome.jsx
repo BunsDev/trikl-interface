@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMoralisQuery, useMoralis } from "react-moralis";
+import { useMoralis } from "react-moralis";
 import { Outlet } from "react-router-dom";
 import PageLoader from "../../../Elements/PageLoader";
 import DappSidebar from "./DappSidebar";

@@ -2,7 +2,6 @@ import parse from "html-react-parser";
 import React, { useEffect } from "react";
 import {
   useMoralis,
-  useChain,
   useWeb3ExecuteFunction,
   useMoralisFile,
 } from "react-moralis";
@@ -22,7 +21,6 @@ const MembershipCard = ({
   network,
 }) => {
   const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated } = useMoralis();
-  const { switchNetwork, chainId } = useChain();
   const contractProcessor = useWeb3ExecuteFunction();
   const { saveFile } = useMoralisFile();
 

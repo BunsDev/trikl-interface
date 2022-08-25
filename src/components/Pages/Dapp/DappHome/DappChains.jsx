@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useChain, useMoralis } from "react-moralis";
 import PolygonLogo from "../../../../assets/polygon-logo.svg";
 
 const DappChains = () => {
-  const { isAuthenticated, Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
+  const { Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
 
   const { chainId } = useChain();
   const PolygonMainnetChainId = "0x89";

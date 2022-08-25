@@ -11,7 +11,7 @@ import WalletNotConnected from "../WalletNotConnected";
 const CreateProfileForm = () => {
   // Import Moralis Functions
   const { saveFile } = useMoralisFile();
-  const { Moralis, account, user, isAuthenticated } = useMoralis();
+  const { Moralis, user, isAuthenticated } = useMoralis();
 
   const navigate = useNavigate();
 

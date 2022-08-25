@@ -75,6 +75,7 @@ const Navbar = () => {
             <NavLink
               to="/dapp/explore"
               target="_blank"
+              rel="noreferrer"
               className="bg-gradient-to-tr from-violetAccent to-blueAccent 
             text-baseWhite font-semibold w-max px-5 py-2 rounded-lg 
               ease-in-out duration-300 

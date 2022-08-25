@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserProfileHeader from "./UserProfileHeader";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import MembershipCard from "./MembershipCard";
 import JoiningError from "./JoiningError";

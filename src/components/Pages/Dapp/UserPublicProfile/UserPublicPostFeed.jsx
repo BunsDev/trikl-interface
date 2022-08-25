@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import parse from "html-react-parser";
-import { useOutletContext } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 
 const UserPublicPostFeed = ({
@@ -53,8 +52,6 @@ export default UserPublicPostFeed;
 ////////////// EACH POST CARD - AVAILABLE POSTS //////////////
 
 const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
-  const [embedUrl, setEmbedUrl] = useState("");
-
   return (
     <div>
       {userPosts.length === 0 ? <div>No Posts Available</div> : ""}

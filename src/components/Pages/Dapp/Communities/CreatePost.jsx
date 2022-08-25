@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { useMoralisFile, useMoralis } from "react-moralis";
 import PageLoader from "../../../Elements/PageLoader";
 import "./CreatePost.css";

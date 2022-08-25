@@ -17,7 +17,7 @@ const AlreadyACreator = ({ creatorUsername }) => {
       <img
         className="h-[60vh] error-animation"
         src={alreadyACreatorImg}
-        alt="Error Image Trikl"
+        alt="Error Trikl"
       />
     </div>
   );

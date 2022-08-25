@@ -48,8 +48,6 @@ export default UserPostFeed;
 ////////////// EACH POST CARD - AVAILABLE POSTS //////////////
 
 const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
-  const [embedUrl, setEmbedUrl] = useState("");
-
   return (
     <div>
       {userPosts.length === 0 ? <div>No Posts Available</div> : ""}

@@ -1,6 +1,5 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-import { NavLink } from "react-router-dom";
 import errorImage from "../../../assets/error-image.png";
 import "./ErrorPage.css";
 

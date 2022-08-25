@@ -43,17 +43,21 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
 
           <div className="w-1/2 flex">
             <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
-              <a href={userInfo.Twitter_Link} target="_blank">
+              <a href={userInfo.Twitter_Link} target="_blank" rel="noreferrer">
                 <BsTwitter />
               </a>
             </li>
             <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
-              <a href={userInfo.Youtube_Link} target="_blank">
+              <a href={userInfo.Youtube_Link} target="_blank" rel="noreferrer">
                 <BsYoutube />
               </a>
             </li>
             <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
-              <a href={userInfo.Instagram_Link} target="_blank">
+              <a
+                href={userInfo.Instagram_Link}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <AiFillInstagram />
               </a>
             </li>

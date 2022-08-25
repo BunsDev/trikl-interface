@@ -9,7 +9,6 @@ import "./DappHome.css";
 import { BsPeople } from "react-icons/bs";
 import { IoCreateOutline } from "react-icons/io5";
 import { FiHash } from "react-icons/fi";
-import { MdRefresh } from "react-icons/md";
 import DappChains from "./DappChains";
 
 ///////////////// MAIN FUNCTION /////////////////

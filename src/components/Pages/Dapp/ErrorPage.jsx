@@ -32,7 +32,7 @@ const ErrorPage = () => {
       <img
         className="h-[90vh] error-animation"
         src={errorImage}
-        alt="Error Image Trikl"
+        alt="Error Trikl"
       />
     </div>
   );

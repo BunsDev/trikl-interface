@@ -17,6 +17,7 @@ const TeamCard = (props) => {
         <a
           href={props.profileDetails.twitterUrl}
           target="_blank"
+          rel="noreferrer"
           className="text-lightAccent flex items-center gap-5 justify-center"
         >
           <header className="text-2xl text-lightGrey py-5">

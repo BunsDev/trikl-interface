@@ -119,12 +119,20 @@ const Footer = () => {
                 <li className="text-lightGrey">Join Our Socials</li>
                 <div className="flex gap-10">
                   <li>
-                    <a href="https://twitter.com/triklHQ" target="_blank">
+                    <a
+                      href="https://twitter.com/triklHQ"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <TwitterIcon fontSize="large" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://t.me/TriklHQ" target="_blank">
+                    <a
+                      href="https://t.me/TriklHQ"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <TelegramIcon fontSize="large" />
                     </a>
                   </li>
