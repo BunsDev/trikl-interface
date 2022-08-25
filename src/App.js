@@ -17,10 +17,10 @@ import UserTweetFeed from "./components/Pages/Dapp/UserPublicProfile/UserTweetFe
 import UserInstaFeed from "./components/Pages/Dapp/UserPublicProfile/UserInstaFeed";
 
 function App() {
-  const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
-  const appId = process.env.REACT_APP_MORALIS_APPID;
+  // const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+  // const appId = process.env.REACT_APP_MORALIS_APPID;
 
-  Moralis.start({ serverUrl, appId });
+  // Moralis.start({ serverUrl, appId });
 
   return (
     <HashRouter>
