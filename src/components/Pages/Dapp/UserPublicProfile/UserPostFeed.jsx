@@ -64,9 +64,11 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
               <div id="editingPreview" className="pt-5">
                 {parse(eachPost.attributes.Description)}
               </div>
-              <div>Embed URL = {eachPost.attributes.EmbedUrl}</div>
-              <div>Video Url = {eachPost.attributes.VideoUrl}</div>
-              <div className="w-full aspect-video pt-5">
+              <div
+                className={`w-full aspect-video pt-5 ${
+                  eachPost.attributes.EmbedUrl.length > 0 ? "" : "hidden"
+                }`}
+              >
                 <iframe
                   className="rounded-lg"
                   width="100%"
