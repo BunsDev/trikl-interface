@@ -228,7 +228,7 @@ const FreeOrPaidCheck = ({ isPaid, setIsPaid }) => {
   return (
     <label
       htmlFor="isPaid"
-      className="relative bg-transparent border-[1px] border-gray-700 w-40 h-10 rounded-full cursor-pointer"
+      className="relative bg-transparent border-[1px] border-gray-700 w-40 h-8 rounded-full cursor-pointer"
     >
       <input
         type="checkbox"
@@ -239,11 +239,11 @@ const FreeOrPaidCheck = ({ isPaid, setIsPaid }) => {
         onChange={(e) => setIsPaid(e.target.checked)}
         className="sr-only peer"
       />
-      <span className="h-4/5 aspect-square opacity-100 bg-lightViolet absolute rounded-full top-1 left-1 peer-checked:opacity-0 transition-all duration-300"></span>
-      <span className="h-4/5 aspect-square opacity-0 bg-lightAccent absolute rounded-full top-1 right-1 peer-checked:opacity-100 transition-all duration-300"></span>
+      <span className="h-4/5 aspect-square opacity-100 bg-lightViolet absolute rounded-full top-1/2 -translate-y-1/2 left-1 peer-checked:opacity-0 transition-all duration-300"></span>
+      <span className="h-4/5 aspect-square opacity-0 bg-lightAccent absolute rounded-full top-1/2 -translate-y-1/2 right-1 peer-checked:opacity-100 transition-all duration-300"></span>
 
       <span
-        className={`absolute top-1 right-5 peer-checked:right-16 min-w-max transition-all duration-300 ${
+        className={`absolute top-1/2 -translate-y-1/2 right-5 peer-checked:right-16 min-w-max transition-all duration-300 font-light ${
           isPaid ? "text-lightAccent" : "text-lightViolet"
         }`}
       >
