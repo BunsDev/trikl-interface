@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useChain, useMoralis } from "react-moralis";
+import PolygonLogo from "../../../../assets/polygon-logo.svg";
 
 const DappChains = () => {
   const { isAuthenticated, Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
@@ -28,7 +29,7 @@ const DappChains = () => {
         await Moralis.switchNetwork(PolygonTestnetChainId);
       }
     } catch (error) {
-      return alert(error);
+      return;
     }
   };
 
@@ -41,23 +42,44 @@ const DappChains = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-1 items-start text-left pb-10">
-      <div className="text-sm text-lightViolet">Switch Network</div>
+    <div
+      className={`flex gap-1 items-start text-left pb-10 ${
+        chainId === PolygonMainnetChainId ? "flex-col" : "flex-col-reverse"
+      }`}
+    >
       <button
         onClick={switchToMainnet}
         className={`${
-          chainId === PolygonMainnetChainId ? "text-lightAccent" : ""
+          chainId === PolygonMainnetChainId
+            ? "text-lightViolet font-semibold py-1 text-left flex gap-2"
+            : "text-sm"
         }`}
       >
+        {chainId === PolygonMainnetChainId ? (
+          <div>
+            <img src={PolygonLogo} alt="" />
+          </div>
+        ) : (
+          "Switch To"
+        )}{" "}
         Mainnet
       </button>
       <button
         onClick={switchToTestnet}
         className={`${
-          chainId === PolygonTestnetChainId ? "text-lightAccent" : ""
+          chainId === PolygonTestnetChainId
+            ? "text-lightViolet font-semibold py-1 text-left flex gap-2"
+            : "text-sm"
         }`}
       >
-        Testnet
+        {chainId === PolygonTestnetChainId ? (
+          <div>
+            <img src={PolygonLogo} alt="" />
+          </div>
+        ) : (
+          "Switch To"
+        )}
+        Mumbai
       </button>
     </div>
   );
