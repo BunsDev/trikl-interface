@@ -1,84 +1,66 @@
 import { useEffect, useState } from "react";
 import { useChain, useMoralis } from "react-moralis";
-import PolygonLogo from "./../../../../assets/polygon-logo.svg";
-
-const menuItems = [
-  {
-    key: "0x89",
-    value: "Polygon",
-    icon: PolygonLogo,
-  },
-  {
-    key: "0x13881",
-    value: "Mumbai",
-    icon: PolygonLogo,
-  },
-];
 
 const DappChains = () => {
   const { isAuthenticated, Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
 
   const { chainId } = useChain();
+  const PolygonMainnetChainId = "0x89";
+  const PolygonTestnetChainId = "0x13881";
 
-  const [isMainnet, setIsMainnet] = useState(true);
-
-  const switchNetworkFunc = async () => {
+  const switchToMainnet = async () => {
     try {
-      if (isMainnet) {
-        await Moralis.switchNetwork(menuItems[0].key);
-      } else if (!isMainnet) {
-        await Moralis.switchNetwork(menuItems[1].key);
+      if (chainId === PolygonMainnetChainId) {
+        return alert("Already on Mainnet");
+      } else {
+        await Moralis.switchNetwork(PolygonMainnetChainId);
       }
     } catch (error) {
-      setIsMainnet((prev) => !prev);
+      return alert(error);
+    }
+  };
+
+  const switchToTestnet = async () => {
+    try {
+      if (chainId === PolygonTestnetChainId) {
+        return alert("Already on Testnet");
+      } else {
+        await Moralis.switchNetwork(PolygonTestnetChainId);
+      }
+    } catch (error) {
+      return alert(error);
     }
   };
 
   useEffect(() => {
-    console.log("Is Mainnet ---> ", isMainnet);
     (async () => {
       if (!isWeb3Enabled) {
         await enableWeb3();
       }
     })();
-    switchNetworkFunc();
-  }, [isMainnet]);
+  }, []);
 
   return (
     <div className="flex flex-col gap-1 items-start text-left pb-10">
       <div className="text-sm text-lightViolet">Switch Network</div>
+      <button
+        onClick={switchToMainnet}
+        className={`${
+          chainId === PolygonMainnetChainId ? "text-lightAccent" : ""
+        }`}
+      >
+        Mainnet
+      </button>
+      <button
+        onClick={switchToTestnet}
+        className={`${
+          chainId === PolygonTestnetChainId ? "text-lightAccent" : ""
+        }`}
+      >
+        Testnet
+      </button>
     </div>
   );
 };
 
 export default DappChains;
-
-{
-  /* <label
-htmlFor="isMainnet"
-className="relative bg-transparent border-[1px] border-gray-700 w-36 h-8 rounded-full cursor-pointer"
->
-<input
-  type="checkbox"
-  name="isMainnet"
-  id="isMainnet"
-  value={isMainnet}
-  onChange={(e) => setIsMainnet(e.target.checked)}
-  className="sr-only peer"
-/>
-
-<span
-  className={`h-4/5 aspect-square absolute rounded-full top-1/2 -translate-y-1/2 left-1 transition-all duration-300
-  ${isMainnet ? "bg-lightAccent" : "bg-lightViolet"}`}
-></span>
-
-
-<span
-  className={`absolute top-1/2 -translate-y-1/2 left-10 min-w-max transition-all duration-300 ${
-    isMainnet ? "text-lightAccent" : "text-lightViolet"
-  }`}
->
-  {isMainnet ? "Mainnet" : "Testnet"}
-</span>
-</label> */
-}
