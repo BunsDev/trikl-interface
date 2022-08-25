@@ -92,8 +92,6 @@ const CreatePost = () => {
       currUsername,
     };
 
-    console.log(metadata);
-
     try {
       const result = await saveFile(
         "newPost.json",
