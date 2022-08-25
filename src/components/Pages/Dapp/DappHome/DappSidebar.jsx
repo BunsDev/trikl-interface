@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMoralis } from "react-moralis";
 import { NavLink } from "react-router-dom";
 import Popup from "reactjs-popup";
+import "./DappHome.css";
 
 ///////////////// ICON IMPORTS /////////////////
 
@@ -9,6 +10,7 @@ import { BsPeople } from "react-icons/bs";
 import { IoCreateOutline } from "react-icons/io5";
 import { FiHash } from "react-icons/fi";
 import { MdRefresh } from "react-icons/md";
+import DappChains from "./DappChains";
 
 ///////////////// MAIN FUNCTION /////////////////
 
@@ -68,8 +70,13 @@ const DappSidebar = () => {
         ))}
       </div>
 
-      <div className="flex gap-2 items-center font-semibold text-lg text-lightAccent cursor-pointer w-full">
-        {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      <div className="flex flex-col gap-2 items-start w-full">
+        <div>
+          <DappChains />
+        </div>
+        <div className="font-semibold text-lg text-lightAccent cursor-pointer">
+          {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+        </div>
       </div>
     </div>
   );
@@ -90,10 +97,10 @@ const LogoutButton = () => {
           {user.get("ethAddress").slice(-4)}
         </button>
       }
-      position="top"
+      position="right"
       closeOnDocumentClick
     >
-      <button onClick={() => logout()} className=" text-white">
+      <button onClick={() => logout()} className="pl-2 text-red-400">
         Logout
       </button>
     </Popup>
