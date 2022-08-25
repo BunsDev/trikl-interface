@@ -127,10 +127,6 @@ const TextEditor = ({ aboutMsg, setAboutMsg }) => {
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
       />
-
-      {/* <div id="editingPreview" className="flex flex-col gap-5">
-        {parse(draftToHtml(convertToRaw(description.getCurrentContent())))}
-      </div> */}
     </div>
   );
 };

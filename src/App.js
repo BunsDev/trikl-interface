@@ -11,11 +11,6 @@ import MyCommunities from "./components/Pages/Dapp/Communities/MyCommunities";
 import AllCommunities from "./components/Pages/Dapp/Communities/AllCommunities";
 import ErrorPage from "./components/Pages/Dapp/ErrorPage";
 import CreateProfileForm from "./components/Pages/Dapp/CreateProfile/CreateProfileForm";
-// user profile nav
-import UserPostFeed from "./components/Pages/Dapp/UserPublicProfile/UserPostFeed";
-import UserYouTubeFeed from "./components/Pages/Dapp/UserPublicProfile/UserYouTubeFeed";
-import UserTweetFeed from "./components/Pages/Dapp/UserPublicProfile/UserTweetFeed";
-import UserInstaFeed from "./components/Pages/Dapp/UserPublicProfile/UserInstaFeed";
 
 function App({ useUrl, useAppId, network }) {
   const serverUrl = useUrl;

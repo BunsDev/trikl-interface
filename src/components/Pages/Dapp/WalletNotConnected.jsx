@@ -33,7 +33,7 @@ const WalletNotConnected = () => {
       <img
         className="h-[80vh] object-contain error-animation"
         src={errorImage}
-        alt="Error Image Trikl"
+        alt="Trikl Error"
       />
     </div>
   );

@@ -146,8 +146,6 @@ const CreateProfileForm = () => {
     setValues({
       ...values,
       [e.target.name]: [e.target.value],
-      // userMessage: aboutMsg,
-      // whySubMsg: whyJoin,
     });
   };
   ////////////// basic form controls //////////////
@@ -183,12 +181,6 @@ const CreateProfileForm = () => {
     event.preventDefault();
 
     setPortfolioCreationInProgress(true);
-
-    // const aliasArray = userAlias.split();
-    // const userMessageArray = userMessage.split();
-
-    //creating metadata to store on ipfs
-    // const metadata = values;
 
     const metadata = {
       ...values,
@@ -286,12 +278,6 @@ const CreateProfileForm = () => {
               onChange={onChange}
             />
           </div>
-          {/* <FormInput
-            key={inputs[2].id}
-            {...inputs[2]}
-            value={values[inputs[2].name]}
-            onChange={onChange}
-          /> */}
 
           <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
             <label className="text-lightViolet text-base tracking-widest font-light">
@@ -340,12 +326,7 @@ const CreateProfileForm = () => {
             value={values[inputs[7].name]}
             onChange={onChange}
           />
-          {/* <FormInput
-            key={inputs[8].id}
-            {...inputs[8]}
-            value={values[inputs[8].name]}
-            onChange={onChange}
-          /> */}
+
           <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
             <label className="text-lightViolet text-base tracking-widest font-light">
               {inputs[8].label}

@@ -1,4 +1,4 @@
-import React, { Children, Component, useState } from "react";
+import React, { useState } from "react";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
@@ -132,10 +132,6 @@ const CreatePostEditor = ({
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
       />
-
-      {/* <div id="editingPreview" className="flex flex-col gap-5">
-          {parse(draftToHtml(convertToRaw(descriptionEditBox.getCurrentContent())))}
-        </div> */}
     </div>
   );
 };

@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import { ethers } from "ethers";
-import { useState } from "react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

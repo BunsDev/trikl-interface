@@ -1,6 +1,5 @@
 import parse from "html-react-parser";
 import React, { useEffect } from "react";
-import { useState } from "react";
 import {
   useMoralis,
   useChain,
