@@ -31,9 +31,9 @@ const MembershipCard = ({
       if (!isWeb3Enabled) {
         await enableWeb3();
       }
-      if (chainId !== 0x13881) {
-        await switchNetwork(0x13881);
-      }
+      // if (chainId !== 0x13881) {
+      //   await switchNetwork(0x13881);
+      // }
     })();
 
     return () => {
