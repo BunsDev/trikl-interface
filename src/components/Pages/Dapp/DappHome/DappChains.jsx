@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useChain, useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 import PolygonLogo from "../../../../assets/polygon-logo.svg";
 
 const DappChains = () => {
   const { Moralis, isWeb3Enabled, enableWeb3 } = useMoralis();
 
   const { chainId } = useChain();
+  let navigate = useNavigate();
   const PolygonMainnetChainId = "0x89";
   const PolygonTestnetChainId = "0x13881";
 
@@ -15,7 +17,8 @@ const DappChains = () => {
         return alert("Already on Mainnet");
       } else {
         await Moralis.switchNetwork(PolygonMainnetChainId);
-        window.location.reload();
+        navigate("/dapp/explore");
+        navigate(0);
       }
     } catch (error) {
       return alert(error);
@@ -28,7 +31,8 @@ const DappChains = () => {
         return alert("Already on Testnet");
       } else {
         await Moralis.switchNetwork(PolygonTestnetChainId);
-        window.location.reload();
+        navigate("/dapp/explore");
+        navigate(0);
       }
     } catch (error) {
       return;
