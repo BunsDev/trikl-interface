@@ -11,8 +11,10 @@ import MyCommunities from "./components/Pages/Dapp/Communities/MyCommunities";
 import AllCommunities from "./components/Pages/Dapp/Communities/AllCommunities";
 import ErrorPage from "./components/Pages/Dapp/ErrorPage";
 import CreateProfileForm from "./components/Pages/Dapp/CreateProfile/CreateProfileForm";
+import { useEffect, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
-function App({ useUrl, useAppId, network }) {
+function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
   const serverUrl = useUrl;
   const appId = useAppId;
 
@@ -21,6 +23,7 @@ function App({ useUrl, useAppId, network }) {
   return (
     <HashRouter>
       <div className="App">
+        {!isMetamaskInstalled ? <MetamaskNotInstalled /> : ""}
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -41,3 +44,24 @@ function App({ useUrl, useAppId, network }) {
 }
 
 export default App;
+
+const MetamaskNotInstalled = () => {
+  const [isHidden, setIsHidden] = useState(false);
+  return (
+    <div
+      className={`${
+        isHidden
+          ? "hidden"
+          : "hidden md:block bg-lightViolet w-full text-center uppercase tracking-widest text-sm py-1 relative"
+      }`}
+    >
+      <span>Please Install Metamask To Access All Features</span>
+      <button
+        className="absolute right-10 top-1/2 -translate-y-1/2"
+        onClick={() => setIsHidden(true)}
+      >
+        <AiOutlineClose />
+      </button>
+    </div>
+  );
+};

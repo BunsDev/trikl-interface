@@ -60,41 +60,30 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
           key={eachPost.id}
           className="bg-black/30 rounded-lg text-base text-left text-gray-400 mb-10 p-5"
         >
-          {isJoinedMember || isCurrCreator ? (
-            <>
-              <p className="text-lightGrey text-2xl pt-5 border-b-2 border-lightViolet/10 pb-5">
-                {eachPost.attributes.Title}
-              </p>
-              <div id="editingPreview" className="pt-5">
-                {parse(eachPost.attributes.Description)}
-              </div>
-              <div
-                className={`w-full aspect-video pt-5 ${
-                  eachPost.attributes.EmbedUrl.length > 0 ? "" : "hidden"
-                }`}
-              >
-                <iframe
-                  className="rounded-lg"
-                  width="100%"
-                  height="100%"
-                  src={eachPost.attributes.EmbedUrl}
-                  title={eachPost.attributes.Title}
-                  frameBorder="0"
-                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="text-lightViolet text-center text-lg pb-2">
-                Sorry, Post Unavailable!
-              </p>
-              <div className="text-center">
-                Join As Member To Unlock This Post!
-              </div>
-            </>
-          )}
+          <>
+            <p className="text-lightGrey text-2xl pt-5 border-b-2 border-lightViolet/10 pb-5">
+              {eachPost.attributes.Title}
+            </p>
+            <div id="editingPreview" className="pt-5">
+              {parse(eachPost.attributes.Description)}
+            </div>
+            <div
+              className={`w-full aspect-video pt-5 ${
+                eachPost.attributes.EmbedUrl.length > 0 ? "" : "hidden"
+              }`}
+            >
+              <iframe
+                className="rounded-lg"
+                width="100%"
+                height="100%"
+                src={eachPost.attributes.EmbedUrl}
+                title={eachPost.attributes.Title}
+                frameBorder="0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </>
         </div>
       ))}
     </div>

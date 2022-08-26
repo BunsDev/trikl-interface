@@ -8,11 +8,22 @@ import { ethers } from "ethers";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // FOR NETWORK SWITCH
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-let network, useUrl, useAppId;
+let provider, network, useUrl, useAppId;
+let isMetamaskInstalled = true;
+
+if (window.ethereum) {
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+} else {
+  provider = "";
+}
 
 const getChainId = async () => {
-  network = (await provider.getNetwork()).chainId;
+  if (provider !== "") {
+    network = (await provider.getNetwork()).chainId;
+  } else {
+    network = 137;
+    isMetamaskInstalled = false;
+  }
 };
 
 const checkNetworkSwitch = async () => {
@@ -32,7 +43,12 @@ const checkNetworkSwitch = async () => {
 
   root.render(
     <MoralisProvider serverUrl={useUrl} appId={useAppId}>
-      <App useUrl={useUrl} useAppId={useAppId} network={network} />
+      <App
+        useUrl={useUrl}
+        useAppId={useAppId}
+        network={network}
+        isMetamaskInstalled={isMetamaskInstalled}
+      />
     </MoralisProvider>
   );
 };

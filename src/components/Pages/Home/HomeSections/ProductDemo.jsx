@@ -16,7 +16,7 @@ const ProductDemo = () => {
           title="Trikl - Product Demo"
           frameBorder="0"
           allow="clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       </div>
     </div>
