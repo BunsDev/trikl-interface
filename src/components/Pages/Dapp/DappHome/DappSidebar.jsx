@@ -108,11 +108,15 @@ const LogoutButton = () => {
 ///////////////// LOGIN BUTTON /////////////////
 
 const LoginButton = () => {
-  const { isAuthenticated, authenticate, Moralis } = useMoralis();
+  const { isAuthenticated, authenticate, Moralis, chainId } = useMoralis();
 
   const login = async () => {
     if (!isAuthenticated) {
       try {
+        if (chainId !== "0x89" || "0x13881") {
+          await Moralis.switchNetwork("0x13881");
+        }
+
         await authenticate({ signingMessage: "Log in to Trikl" });
         await Moralis.enableWeb3();
         window.location.reload();

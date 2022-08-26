@@ -32,13 +32,10 @@ const checkNetworkSwitch = async () => {
   if (network === 137) {
     useUrl = process.env.REACT_APP_MORALIS_SERVER_URL_MAINNET;
     useAppId = process.env.REACT_APP_MORALIS_APPID_MAINNET;
-  } else if (network === 80001) {
+    // } else if (network === 80001) {
+  } else {
     useUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
     useAppId = process.env.REACT_APP_MORALIS_APPID;
-  } else {
-    console.log(
-      "Some Error Occured. Please try connecting to Polygon Mainnet / Polygon Mumbai manually!"
-    );
   }
 
   root.render(

@@ -20,7 +20,8 @@ const MembershipCard = ({
   setErrorMessage,
   network,
 }) => {
-  const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated } = useMoralis();
+  const { Moralis, isWeb3Enabled, enableWeb3, isAuthenticated, chainId } =
+    useMoralis();
   const contractProcessor = useWeb3ExecuteFunction();
   const { saveFile } = useMoralisFile();
 
@@ -104,6 +105,11 @@ const MembershipCard = ({
   const [joinDisabled, setJoinDisabled] = useState(false);
   async function handleClick({ userInfo }) {
     setJoinDisabled(true);
+
+    if (chainId !== "0x89" || "0x13881") {
+      await Moralis.switchNetwork("0x13881");
+    }
+
     const creatorAddress = userInfo.Creator_Address;
     const creatorUsername = userInfo.Username;
     const membershipCharges = userInfo.Membership_charges;
