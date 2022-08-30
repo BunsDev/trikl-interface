@@ -564,37 +564,35 @@
 }
 .rdw-image-modal {
   position: absolute;
-  top: 35px;
+  top: 40px;
   left: 5px;
   display: flex;
   flex-direction: column;
   width: 235px;
-  border: 1px solid #f1f1f1;
   padding: 15px;
-  border-radius: 2px;
+  border-radius: 10px;
   z-index: 100;
-  background: white;
-  box-shadow: 3px 3px 5px #bfbdbd;
+  background: #070031;
 }
 .rdw-image-modal-header {
   font-size: 15px;
   margin: 10px 0;
   display: flex;
 }
-.rdw-image-modal-header-option {
+/* .rdw-image-modal-header-option {
   width: 50%;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-.rdw-image-modal-header-label {
+} */
+/* .rdw-image-modal-header-label {
   width: 80px;
   background: #f1f1f1;
   border: 1px solid #f1f1f1;
   margin-top: 5px;
-}
+} */
 .rdw-image-modal-header-label-highlighted {
   background: #6eb8d4;
   border-bottom: 2px solid #0a66b7;
@@ -607,15 +605,15 @@
   font-size: 15px;
   align-items: center;
   justify-content: center;
-  background-color: #f1f1f1;
+  background-color: #441313;
   outline: 2px dashed gray;
   outline-offset: -10px;
   margin: 10px 0;
   padding: 9px 0;
 }
-.rdw-image-modal-upload-option-highlighted {
+/* .rdw-image-modal-upload-option-highlighted {
   outline: 2px dashed #0a66b7;
-}
+} */
 .rdw-image-modal-upload-option-label {
   cursor: pointer;
   height: 100%;
@@ -648,8 +646,9 @@
   width: 90%;
   height: 35px;
   margin: 15px 0 12px;
-  border: 1px solid #f1f1f1;
-  border-radius: 2px;
+  background-color: transparent;
+  border: 1px solid #494949;
+  border-radius: 5px;
   font-size: 15px;
   padding: 0 5px;
 }
@@ -661,12 +660,14 @@
 }
 .rdw-image-modal-btn {
   margin: 0 5px;
+  color: #c489fb;
+  font-weight: bolder;
   width: 75px;
   height: 30px;
-  border: 1px solid #f1f1f1;
-  border-radius: 2px;
+  border: 1px solid #c489fb;
+  border-radius: 5px;
   cursor: pointer;
-  background: white;
+  background: #1b0033;
   text-transform: capitalize;
 }
 .rdw-image-modal-btn:hover {
@@ -679,7 +680,9 @@
   outline: none !important;
 }
 .rdw-image-modal-btn:disabled {
-  background: #ece9e9;
+  background: rgba(0, 0, 0, 0.5);
+  color: gray;
+  border: 1px solid gray;
 }
 .rdw-image-modal-spinner {
   position: absolute;
@@ -704,20 +707,23 @@
   font-size: 12px;
 }
 .rdw-image-modal-size {
-  align-items: center;
+  display: none;
+  /* align-items: center;
   display: flex;
   margin: 8px 0;
-  justify-content: space-between;
+  justify-content: space-between; */
 }
 .rdw-image-modal-size-input {
-  width: 40%;
+  display: none;
+  /* width: 40%;
   height: 20px;
   border: 1px solid #f1f1f1;
   border-radius: 2px;
-  font-size: 12px;
+  font-size: 12px; */
 }
 .rdw-image-modal-size-input:focus {
-  outline: none;
+  display: none;
+  /* outline: none; */
 }
 .rdw-image-mandatory-sign {
   color: red;

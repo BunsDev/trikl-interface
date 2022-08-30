@@ -117,7 +117,7 @@ const UserProfile = ({ network }) => {
                 isCurrCreator={isCurrCreator}
               />
             ) : activeUserTab === "tweetFeed" ? (
-              <UserTweetFeed />
+              <UserTweetFeed userInfo={userInfo} />
             ) : activeUserTab === "publicFeed" ? (
               <UserPublicPostFeed
                 userNameFromUrl={userNameFromUrl}

@@ -470,6 +470,10 @@ const CreateProfileForm = () => {
             value={values[inputs[7].name]}
             onChange={onChange}
           />
+          <div className="-mt-5 pt-0 text-gray-400 text-sm font-light">
+            Trikl's model is simple - we receive 2.5% of this membership fee.
+            That's it!
+          </div>
 
           <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
             <label className="text-lightViolet text-base tracking-widest font-light">

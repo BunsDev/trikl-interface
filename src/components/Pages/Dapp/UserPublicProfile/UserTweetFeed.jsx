@@ -3,11 +3,13 @@ import { BarLoader } from "react-spinners";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import "./UserProfile.css";
 
-const UserTweetFeed = () => {
+const UserTweetFeed = ({ userInfo }) => {
   const [isTweetAvailable, setIsTweetAvailable] = useState(true);
-  const [reqdTwitterUrl, setReqdTwitterUrl] = useState("_raushansharma");
-
+  // const [reqdTwitterUrl, setReqdTwitterUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const fullTwitterUrl = userInfo.Twitter_Link;
+  const twitterUsername = fullTwitterUrl.split("/")[3];
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,14 +18,14 @@ const UserTweetFeed = () => {
   });
 
   return (
-    <div className="py-10">
+    <div className="py-5">
       {isLoading ? <BarLoader width="100%" color="#c489fb" /> : ""}
 
       {isTweetAvailable ? (
         <div className="selfCenter spaceBetween standardWidth">
           <TwitterTimelineEmbed
             sourceType="timeline"
-            screenName={reqdTwitterUrl}
+            screenName={twitterUsername}
             theme="dark"
             transparent
           />
