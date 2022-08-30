@@ -62,18 +62,18 @@ const CreatePost = () => {
 
     setPostingInProgress(true);
 
-    let embeddingUrl;
-    const longLinkReplacement = videoUrl.replace("watch?v=", "embed/");
-    const shortLinkReplacement = videoUrl.replace(
-      "youtu.be/",
-      "www.youtube.com/embed/"
-    );
+    // let embeddingUrl;
+    // const longLinkReplacement = videoUrl.replace("watch?v=", "embed/");
+    // const shortLinkReplacement = videoUrl.replace(
+    //   "youtu.be/",
+    //   "www.youtube.com/embed/"
+    // );
 
-    if (longLinkReplacement.includes("embed")) {
-      embeddingUrl = longLinkReplacement;
-    } else {
-      embeddingUrl = shortLinkReplacement;
-    }
+    // if (longLinkReplacement.includes("embed")) {
+    //   embeddingUrl = longLinkReplacement;
+    // } else {
+    //   embeddingUrl = shortLinkReplacement;
+    // }
 
     let isPaidString;
     if (isPaid) {
@@ -86,7 +86,7 @@ const CreatePost = () => {
       title,
       description: descriptionFromEditor,
       videoUrl,
-      embeddingUrl,
+      // embeddingUrl,
       userWalletAddress,
       isPaidString,
       currUsername,
@@ -110,7 +110,7 @@ const CreatePost = () => {
       post.set("Title", ipfsData.title);
       post.set("Description", ipfsData.description);
       post.set("VideoUrl", ipfsData.videoUrl);
-      post.set("EmbedUrl", ipfsData.embeddingUrl);
+      // post.set("EmbedUrl", ipfsData.embeddingUrl);
       post.set("IsPaid", ipfsData.isPaidString);
       post.set("CreatorAddress", ipfsData.userWalletAddress);
       post.set("Username", ipfsData.currUsername);

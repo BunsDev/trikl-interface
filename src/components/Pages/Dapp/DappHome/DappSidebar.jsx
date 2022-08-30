@@ -1,6 +1,6 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 import "./DappHome.css";
 
@@ -109,6 +109,7 @@ const LogoutButton = () => {
 
 const LoginButton = () => {
   const { isAuthenticated, authenticate, Moralis, chainId } = useMoralis();
+  let navigate = useNavigate();
 
   const login = async () => {
     if (!isAuthenticated) {
@@ -119,7 +120,7 @@ const LoginButton = () => {
 
         await authenticate({ signingMessage: "Log in to Trikl" });
         await Moralis.enableWeb3();
-        window.location.reload();
+        navigate(0);
       } catch (error) {
         alert("Some Error occured: ", error);
       }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 import errorImage from "../../../assets/error-image.png";
 import "./ErrorPage.css";
 
@@ -42,12 +43,14 @@ export default WalletNotConnected;
 
 const LoginButton = () => {
   const { isAuthenticated, authenticate, Moralis } = useMoralis();
+  let navigate = useNavigate();
 
   const login = async () => {
     if (!isAuthenticated) {
       try {
         await authenticate({ signingMessage: "Log in to Trikl" });
         await Moralis.enableWeb3();
+        navigate(0);
       } catch (error) {
         alert("Some Error occured: ", error);
       }

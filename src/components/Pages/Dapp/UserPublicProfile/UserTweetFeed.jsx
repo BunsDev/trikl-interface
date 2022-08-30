@@ -4,12 +4,16 @@ import { TwitterTimelineEmbed } from "react-twitter-embed";
 import "./UserProfile.css";
 
 const UserTweetFeed = ({ userInfo }) => {
-  const [isTweetAvailable, setIsTweetAvailable] = useState(true);
+  let isTweetAvailable = false;
   // const [reqdTwitterUrl, setReqdTwitterUrl] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const fullTwitterUrl = userInfo.Twitter_Link;
-  const twitterUsername = fullTwitterUrl.split("/")[3];
+  let twitterUsername;
+  if (fullTwitterUrl) {
+    twitterUsername = fullTwitterUrl.split("/")[3];
+    isTweetAvailable = true;
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,7 +31,8 @@ const UserTweetFeed = ({ userInfo }) => {
             sourceType="timeline"
             screenName={twitterUsername}
             theme="dark"
-            transparent
+            backgroundColor="#ff4e4e"
+            onLoad={function noRefCheck() {}}
           />
         </div>
       ) : (

@@ -803,11 +803,11 @@
 
 .rdw-image-alignment-options-popup {
   position: absolute;
-  background: white;
+  background: #1b0033;
   display: flex;
   padding: 5px 2px;
-  border-radius: 2px;
-  border: 1px solid #f1f1f1;
+  /* border-radius: 2px; */
+  /* border: 1px solid #f1f1f1; */
   width: 105px;
   cursor: pointer;
   z-index: 100;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import parse from "html-react-parser";
 import { BarLoader } from "react-spinners";
+import getVideoId from "get-video-id";
 
 const UserPostFeed = ({ userNameFromUrl, isJoinedMember, isCurrCreator }) => {
   const { Moralis } = useMoralis();
@@ -66,14 +67,16 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
               </div>
               <div
                 className={`w-full aspect-video pt-5 ${
-                  eachPost.attributes.EmbedUrl.length > 0 ? "" : "hidden"
+                  eachPost.attributes.VideoUrl.length > 0 ? "" : "hidden"
                 }`}
               >
                 <iframe
                   className="rounded-lg"
                   width="100%"
                   height="100%"
-                  src={eachPost.attributes.EmbedUrl}
+                  src={`https://www.youtube.com/embed/${
+                    getVideoId(eachPost.attributes.VideoUrl).id
+                  }`}
                   title={eachPost.attributes.Title}
                   frameBorder="0"
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
