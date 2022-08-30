@@ -13,12 +13,19 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
     <div className="text-gray-200">
       <section className="items-center pb-10">
         <div className="pb-5 flex items-center gap-10">
-          <Avatar
-            size={100}
-            name={userInfo.Username}
-            variant="beam"
-            colors={AvatarColors}
-          />
+          {userInfo.ProfPicUrl && userInfo.ProfPicUrl !== "" ? (
+            <img
+              src={userInfo.ProfPicUrl}
+              className="object-contain w-20 rounded-full"
+            />
+          ) : (
+            <Avatar
+              size={100}
+              name={userInfo.Username}
+              variant="beam"
+              colors={AvatarColors}
+            />
+          )}
 
           {/* Name section */}
           <header className="text-left w-full">

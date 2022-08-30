@@ -37,12 +37,21 @@ const EachCommunityCard = ({ eachCreator }) => {
     bg-black/30 hover:bg-black/50 rounded-lg px-16 py-10"
     >
       <div className="flex gap-5 relative">
-        <Avatar
-          name={eachCreator.attributes.Username}
-          variant="beam"
-          size={80}
-          colors={AvatarColors}
-        />
+        {eachCreator.attributes.ProfPicUrl &&
+        eachCreator.attributes.ProfPicUrl !== "" ? (
+          <img
+            src={eachCreator.attributes.ProfPicUrl}
+            className="object-contain w-20 rounded-full"
+          />
+        ) : (
+          <Avatar
+            name={eachCreator.attributes.Username}
+            variant="beam"
+            size={80}
+            colors={AvatarColors}
+          />
+        )}
+
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-semibold">
             {eachCreator.attributes.Alias}

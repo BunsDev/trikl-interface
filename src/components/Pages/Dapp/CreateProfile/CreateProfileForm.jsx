@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import { useNavigate } from "react-router-dom";
-import PageLoader from "../../../Elements/PageLoader";
+// import PageLoader from "../../../Elements/PageLoader";
 import AlreadyACreator from "./AlreadyACreator";
 import FormInput from "./FormInput";
 import AboutMessageBox from "./AboutMessageBox";
 import WhyJoinEditor from "./WhyJoinEditor";
 import WalletNotConnected from "../WalletNotConnected";
+import { ethers } from "ethers";
+
+// Web3 Storage - upload image file to IPFS
+import { Web3Storage } from "web3.storage";
+import loadingGif from "../../../../assets/loading-gif.gif";
+import { ClockLoader } from "react-spinners";
 
 const CreateProfileForm = () => {
   // Import Moralis Functions
@@ -148,10 +154,12 @@ const CreateProfileForm = () => {
       [e.target.name]: [e.target.value],
     });
   };
+
   ////////////// basic form controls //////////////
 
   //****************************** SAVING CREATOR TO DATABASE *****************************//
   //Checking for the duplicate creator
+
   useEffect(() => {
     async function Test() {
       const query = new Moralis.Query("Creator");
@@ -176,21 +184,124 @@ const CreateProfileForm = () => {
   const CreatorsPortfolio = Moralis.Object.extend("Creator");
   const creator = new CreatorsPortfolio();
 
+  // START --- WEB3.STORAGE SETUP
+  function getAccessToken() {
+    return process.env.REACT_APP_WEB3STORAGE_TOKEN;
+  }
+  function makeStorageClient() {
+    return new Web3Storage({ token: getAccessToken() });
+  }
+  // START --- UPLOADING TO IPFS WITH WEB3.STORAGE
+  function getFiles() {
+    const fileInput = document.querySelector('input[type="file"]');
+    return fileInput.files;
+  }
+
+  function makeFileObjects(dataObject, fileName) {
+    const blob = new Blob([JSON.stringify(dataObject)], {
+      type: "application/json",
+    });
+    const files = [
+      new File(["contents-of-file-1"], "plain-utf8.txt"),
+      new File([blob], fileName),
+    ];
+    return files;
+  }
+
+  async function storeFormDataFunc(files) {
+    const clientForm = makeStorageClient();
+    const formCid = await clientForm.put(files);
+    console.log("stored files with formCid:", formCid);
+    return formCid;
+  }
+
+  async function storeFiles(files) {
+    console.log("upload started ...");
+    const client = makeStorageClient();
+    const cid = await client.put(files);
+    console.log("stored files with cid:", cid);
+    return cid;
+  }
+  const handleStore = async () => {
+    let response;
+    const fileToUpload = getFiles();
+    if (fileToUpload.length > 0) {
+      response = await storeFiles(fileToUpload);
+    } else {
+      response = "";
+    }
+
+    // setIpfsProfPicCid(response);
+    return response;
+  };
+  // FINISHED --- UPLOADING PROFILE PIC TO IPFS WITH WEB3.STORAGE
+
+  // START --- RETRIEVE IMAGE URL FROM IPFS VIA WEB3.STORAGE
+  async function retrieveProfPic(cid) {
+    if (cid === "") {
+      return "";
+    }
+
+    let fileImage = "";
+    const client = makeStorageClient();
+    const res = await client.get(cid);
+    console.log(`Got a response! [${res.status}] ${res.statusText}`);
+    if (!res.ok) {
+      throw new Error(`failed to get ${cid}`);
+    }
+    const files = await res.files();
+    const fileCid = files[0].cid;
+    fileImage = `https://${fileCid}.ipfs.w3s.link`;
+    return fileImage;
+  }
+  // END --- RETRIEVE IMAGE URL FROM IPFS VIA WEB3.STORAGE
+
   // uploading file to IPFS
   const uploadUser = async (event) => {
     event.preventDefault();
 
     setPortfolioCreationInProgress(true);
 
-    const metadata = {
+    // const metadata = {
+
+    // STORING IMAGE VIA WEB3.STORAGE
+    const storedCidVal = await handleStore();
+    console.log("stored Cid Value Image", storedCidVal);
+
+    // RETRIEVE IMAGE VIA WEB3.STORAGE
+    const retrievedProfPicUrl = await retrieveProfPic(storedCidVal);
+
+    /* UPLOADING REST OF FORM DATA TO IPFS */
+    let uploadedFileName = `${values[inputs[1].name]}.json`;
+    const formData = {
       ...values,
       userMessage: aboutMsg,
       whySubMsg: whyJoin,
+      retrievedProfPicUrl,
+    };
+
+    const fileToUpload = makeFileObjects(formData, uploadedFileName);
+    const ipfsRes = await storeFormDataFunc(fileToUpload);
+    const responseUrl = `https://${ipfsRes}.ipfs.w3s.link/${uploadedFileName}`;
+
+    // Fetch JSON from response
+    let desiredFormData;
+    await fetch(responseUrl) //api for the get request
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data ===>>>>>> ", data);
+        desiredFormData = data;
+      });
+
+    // STORING IN MORALIS DATABASE
+    const metadata = {
+      ...desiredFormData,
+      responseUrl,
     };
 
     try {
       const result = await saveFile(
-        "mydata.json",
+        uploadedFileName,
         //{ base64: window.btoa(JSON.stringify(metadata)) },
         {
           base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
@@ -221,6 +332,8 @@ const CreateProfileForm = () => {
         creator.set("Membership_charges", ipfsData.membershipCharges[0]);
         creator.set("Why_Message", ipfsData.whySubMsg);
         creator.set("Creator_Address", ipfsData.userWalletAddress);
+        creator.set("ProfPicUrl", ipfsData.retrievedProfPicUrl);
+        creator.set("IpfsCidUrl", ipfsData.responseUrl);
 
         creator.save();
       } else {
@@ -245,15 +358,19 @@ const CreateProfileForm = () => {
     <form onSubmit={uploadUser} className="w-full mx-auto py-10">
       <h2
         className="text-4xl text-center text-lightViolet font-semibold capitalize
-        w-full sticky top-0 z-50
+        w-full sticky top-0 z-30
         backdrop-blur-md py-5"
       >
         Start Your Community!
       </h2>
 
       {portfolioCreationInProgress ? (
-        <div className="absolute top-0 z-50 left-0 w-screen h-full bg-black/90">
-          <PageLoader />
+        <div className="absolute w-screen h-full flex items-center pl-20 gap-2 bg-black/80 backdrop-blur-sm z-40 text-left text-xl">
+          <ClockLoader color="#4ee7ff" loading margin={0} size={40} />
+          <span className="text-lightAccent pl-5 capitalize w-2/3">
+            Please wait while we make you invincible... Your Profile is being
+            uploaded to Decentralized Servers! DO NOT Refresh
+          </span>
         </div>
       ) : (
         <div className="hidden"></div>
@@ -317,6 +434,30 @@ const CreateProfileForm = () => {
               value={values[inputs[6].name]}
               onChange={onChange}
             />
+          </div>
+
+          <div className="flex flex-col w-full gap-2 text-left">
+            <div>
+              <label className="text-lightViolet text-base tracking-widest font-light">
+                Upload a profile picture (optional)
+                <span className="text-sm text-gray-400 pl-5">
+                  (Only jpeg, jpg, png allowed)
+                </span>
+              </label>
+            </div>
+            <div>
+              <input
+                type="file"
+                name="web3StorageFile"
+                id="web3StorageFile"
+                className="block w-full text-sm text-slate-400
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-lg file:border-[1px]
+              file:text-sm file:font-semibold
+              file:bg-darkViolet file:border-lightViolet file:text-lightViolet
+              hover:file:bg-transparent hover:file:text-lightAccent hover:file:border-lightAccent"
+              />
+            </div>
           </div>
 
           <div className="w-full text-center text-xs tracking-widest text-lightViolet uppercase bg-black/20 py-2 my-4">
