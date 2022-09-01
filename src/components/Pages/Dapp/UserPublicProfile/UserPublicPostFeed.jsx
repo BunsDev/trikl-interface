@@ -53,6 +53,11 @@ export default UserPublicPostFeed;
 ////////////// EACH POST CARD - AVAILABLE POSTS //////////////
 
 const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
+  const embedUrlByTypes = {
+    youtube: "https://www.youtube.com/embed/",
+    vimeo: "https://player.vimeo.com/video/",
+  };
+
   return (
     <div>
       {userPosts.length === 0 ? <div>No Posts Available</div> : ""}
@@ -77,9 +82,11 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
                 className="rounded-lg"
                 width="100%"
                 height="100%"
-                src={`https://www.youtube.com/embed/${
-                  getVideoId(eachPost.attributes.VideoUrl).id
-                }`}
+                src={`${
+                  embedUrlByTypes[
+                    getVideoId(eachPost.attributes.VideoUrl).service
+                  ]
+                }${getVideoId(eachPost.attributes.VideoUrl).id}`}
                 title={eachPost.attributes.Title}
                 frameBorder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

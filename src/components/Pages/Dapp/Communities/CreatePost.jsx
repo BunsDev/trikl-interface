@@ -62,19 +62,6 @@ const CreatePost = () => {
 
     setPostingInProgress(true);
 
-    // let embeddingUrl;
-    // const longLinkReplacement = videoUrl.replace("watch?v=", "embed/");
-    // const shortLinkReplacement = videoUrl.replace(
-    //   "youtu.be/",
-    //   "www.youtube.com/embed/"
-    // );
-
-    // if (longLinkReplacement.includes("embed")) {
-    //   embeddingUrl = longLinkReplacement;
-    // } else {
-    //   embeddingUrl = shortLinkReplacement;
-    // }
-
     let isPaidString;
     if (isPaid) {
       isPaidString = "Paid";
@@ -86,7 +73,6 @@ const CreatePost = () => {
       title,
       description: descriptionFromEditor,
       videoUrl,
-      // embeddingUrl,
       userWalletAddress,
       isPaidString,
       currUsername,
@@ -110,7 +96,6 @@ const CreatePost = () => {
       post.set("Title", ipfsData.title);
       post.set("Description", ipfsData.description);
       post.set("VideoUrl", ipfsData.videoUrl);
-      // post.set("EmbedUrl", ipfsData.embeddingUrl);
       post.set("IsPaid", ipfsData.isPaidString);
       post.set("CreatorAddress", ipfsData.userWalletAddress);
       post.set("Username", ipfsData.currUsername);
@@ -189,12 +174,12 @@ const CreatePost = () => {
               htmlFor="videoLink"
               className="text-lightViolet text-base tracking-widest font-light"
             >
-              Add a YouTube Video Link
+              Add a Video Link (YouTube or Vimeo)
             </label>
             <input
               type="url"
               className="rounded-lg text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg p-2 bg-transparent border-[1px] border-gray-700"
-              placeholder="Add an unlisted video link for your exclusive community members"
+              placeholder="Add an video link for your exclusive community members (can be unlisted)"
               id="videoLink"
               name="videoLink"
               value={videoUrl}

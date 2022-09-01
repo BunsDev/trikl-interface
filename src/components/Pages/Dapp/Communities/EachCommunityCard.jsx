@@ -41,7 +41,7 @@ const EachCommunityCard = ({ eachCreator }) => {
         eachCreator.attributes.ProfPicUrl !== "" ? (
           <img
             src={eachCreator.attributes.ProfPicUrl}
-            className="object-contain w-20 rounded-full"
+            className="object-cover w-20 h-20 rounded-full"
           />
         ) : (
           <Avatar

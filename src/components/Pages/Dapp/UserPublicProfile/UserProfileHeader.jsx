@@ -49,17 +49,36 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
           </li>
 
           <div className="w-1/2 flex">
-            <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
+            <li
+              className={`${
+                userInfo.Twitter_Link
+                  ? "hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500"
+                  : "hidden"
+              }`}
+            >
               <a href={userInfo.Twitter_Link} target="_blank" rel="noreferrer">
                 <BsTwitter />
               </a>
             </li>
-            <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
+            <li
+              className={`${
+                userInfo.Youtube_Link
+                  ? "hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500"
+                  : "hidden"
+              }`}
+            >
               <a href={userInfo.Youtube_Link} target="_blank" rel="noreferrer">
                 <BsYoutube />
               </a>
             </li>
-            <li className="hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500">
+
+            <li
+              className={`${
+                userInfo.Instagram_Link
+                  ? "hover:bg-lightViolet/20 p-2 flex w-full justify-center hover:text-lightViolet ease-in-out duration-500"
+                  : "hidden"
+              }`}
+            >
               <a
                 href={userInfo.Instagram_Link}
                 target="_blank"
@@ -77,7 +96,8 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
         </div>
         <div
           id="editingPreview"
-          className="font-light text-justify text-base text-gray-400"
+          // className="font-light text-justify text-base text-gray-400"
+          className="text-gray-400"
         >
           {parse("" + userInfo.Message)}
         </div>

@@ -209,7 +209,7 @@ const MembershipCard = ({
         )}
       </div>
 
-      <div className="text-left text-base text-gray-400 font-light border-t-2 border-lightViolet/20">
+      <div className="text-base text-left text-gray-400 border-t-2 border-lightViolet/20">
         <p className="pb-5 pt-8 text-lg text-center text-lightViolet">
           Membership Benefits
         </p>

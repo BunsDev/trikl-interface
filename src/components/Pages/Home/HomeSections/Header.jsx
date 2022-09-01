@@ -13,12 +13,13 @@ const Header = () => {
     <div className="mb-20">
       <div className="flex flex-col md:flex-row items-center md:h-[90vh] container mx-auto text-center md:text-left">
         <section className="text-white pt-16 md:pt-0 md:w-1/3 items-center mx-auto px-10 md:px-0">
-          <h1 className="text-4xl md:text-6xl font-semibold pb-5">
-            Get Community Support For Your Projects
+          <h1 className="text-4xl md:text-6xl font-semibold pb-5 capitalize">
+            <div className=" text-lightAccent">#BUIDL</div>
+            web 3.0 communities
           </h1>
-          <sub className="text-base md:text-xl text-lightViolet capitalize">
-            Let your passionate community members support your work with monthly
-            membership.
+          <sub className="text-base md:text-lg text-lightViolet">
+            Form on-chain communities, share investment advice, educational
+            content, and monetize your efforts with recurring crypto payments.
           </sub>
         </section>
 

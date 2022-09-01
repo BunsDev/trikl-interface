@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useMoralis, useMoralisFile } from "react-moralis";
 import { useNavigate } from "react-router-dom";
-// import PageLoader from "../../../Elements/PageLoader";
 import AlreadyACreator from "./AlreadyACreator";
 import FormInput from "./FormInput";
 import AboutMessageBox from "./AboutMessageBox";
 import WhyJoinEditor from "./WhyJoinEditor";
 import WalletNotConnected from "../WalletNotConnected";
-import { ethers } from "ethers";
 
 // Web3 Storage - upload image file to IPFS
 import { Web3Storage } from "web3.storage";
-import loadingGif from "../../../../assets/loading-gif.gif";
 import { ClockLoader } from "react-spinners";
 
 const CreateProfileForm = () => {
@@ -155,10 +152,7 @@ const CreateProfileForm = () => {
     });
   };
 
-  ////////////// basic form controls //////////////
-
-  //****************************** SAVING CREATOR TO DATABASE *****************************//
-  //Checking for the duplicate creator
+  //********************** SAVING CREATOR TO DATABASE ***********************//
 
   useEffect(() => {
     async function Test() {
@@ -191,9 +185,11 @@ const CreateProfileForm = () => {
   function makeStorageClient() {
     return new Web3Storage({ token: getAccessToken() });
   }
+
   // START --- UPLOADING TO IPFS WITH WEB3.STORAGE
   function getFiles() {
     const fileInput = document.querySelector('input[type="file"]');
+    console.log("file input ==== ", fileInput.files.length, fileInput.files);
     return fileInput.files;
   }
 
@@ -222,54 +218,50 @@ const CreateProfileForm = () => {
     console.log("stored files with cid:", cid);
     return cid;
   }
-  const handleStore = async () => {
+  const handleProfilePicUpload = async () => {
     let response;
     const fileToUpload = getFiles();
-    if (fileToUpload.length > 0) {
+    console.log("file to upload === ", Boolean(fileToUpload), fileToUpload);
+    if (fileToUpload && fileToUpload.length > 0) {
       response = await storeFiles(fileToUpload);
     } else {
       response = "";
     }
-
-    // setIpfsProfPicCid(response);
     return response;
   };
-  // FINISHED --- UPLOADING PROFILE PIC TO IPFS WITH WEB3.STORAGE
-
-  // START --- RETRIEVE IMAGE URL FROM IPFS VIA WEB3.STORAGE
-  async function retrieveProfPic(cid) {
-    if (cid === "") {
-      return "";
-    }
-
-    let fileImage = "";
-    const client = makeStorageClient();
-    const res = await client.get(cid);
-    console.log(`Got a response! [${res.status}] ${res.statusText}`);
-    if (!res.ok) {
-      throw new Error(`failed to get ${cid}`);
-    }
-    const files = await res.files();
-    const fileCid = files[0].cid;
-    fileImage = `https://${fileCid}.ipfs.w3s.link`;
-    return fileImage;
-  }
-  // END --- RETRIEVE IMAGE URL FROM IPFS VIA WEB3.STORAGE
 
   // uploading file to IPFS
   const uploadUser = async (event) => {
     event.preventDefault();
 
+    // Check for duplicate username
+    const query = new Moralis.Query("Creator");
+    query.equalTo("Username", values.username[0]);
+    const results = await query.find();
+    const count = await query.count();
+
+    if (count !== 0) {
+      return alert("Username already exists, Please try something else");
+    }
+
     setPortfolioCreationInProgress(true);
 
-    // const metadata = {
-
     // STORING IMAGE VIA WEB3.STORAGE
-    const storedCidVal = await handleStore();
+    const storedCidVal = await handleProfilePicUpload();
     console.log("stored Cid Value Image", storedCidVal);
 
     // RETRIEVE IMAGE VIA WEB3.STORAGE
-    const retrievedProfPicUrl = await retrieveProfPic(storedCidVal);
+
+    let retrievedProfPicUrl = "";
+    const profilePicInputField =
+      document.querySelector('input[type="file"]').files; // check if image has been uploaded
+
+    if (profilePicInputField[0] !== undefined) {
+      const fileName = profilePicInputField[0].name;
+      retrievedProfPicUrl = `https://${storedCidVal}.ipfs.w3s.link/${fileName}`;
+    }
+
+    console.log("retrieved profile pic url === ", retrievedProfPicUrl);
 
     /* UPLOADING REST OF FORM DATA TO IPFS */
     let uploadedFileName = `${values[inputs[1].name]}.json`;
@@ -302,7 +294,6 @@ const CreateProfileForm = () => {
     try {
       const result = await saveFile(
         uploadedFileName,
-        //{ base64: window.btoa(JSON.stringify(metadata)) },
         {
           base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
         },
@@ -314,12 +305,6 @@ const CreateProfileForm = () => {
       const dataLink = result.ipfs();
       let response = await fetch(dataLink);
       let ipfsData = await response.json();
-
-      //Checking for the duplicate creator
-      const query = new Moralis.Query("Creator");
-      query.equalTo("Username", ipfsData.username[0]);
-      const results = await query.find();
-      const count = await query.count();
 
       if (count === 0) {
         //Setting up the creator row
@@ -399,7 +384,7 @@ const CreateProfileForm = () => {
             />
           </div>
 
-          <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+          <div className="text-gray-300 font-poppins font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
             <label className="text-lightViolet text-base tracking-widest font-light">
               {inputs[2].label}
             </label>
@@ -448,6 +433,7 @@ const CreateProfileForm = () => {
             <div>
               <input
                 type="file"
+                accept=".jpg, .jpeg, .png"
                 name="web3StorageFile"
                 id="web3StorageFile"
                 className="block w-full text-sm text-slate-400
@@ -475,7 +461,7 @@ const CreateProfileForm = () => {
             That's it!
           </div>
 
-          <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+          <div className="text-gray-300 font-poppins font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
             <label className="text-lightViolet text-base tracking-widest font-light">
               {inputs[8].label}
             </label>
