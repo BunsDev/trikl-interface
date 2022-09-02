@@ -79,9 +79,11 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
                   className="rounded-lg"
                   width="100%"
                   height="100%"
-                  src={`"https://player.vimeo.com/video/"${
-                    getVideoId(eachPost.attributes.VideoUrl).id
-                  }`}
+                  src={`${
+                    embedUrlByTypes[
+                      getVideoId(eachPost.attributes.VideoUrl).service
+                    ]
+                  }${getVideoId(eachPost.attributes.VideoUrl).id}`}
                   title={eachPost.attributes.Title}
                   frameBorder="0"
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
