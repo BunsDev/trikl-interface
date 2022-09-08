@@ -13,6 +13,7 @@ import leftAlignIcon from "../../../../assets/left-align-icon.png";
 import centerAlignIcon from "../../../../assets/center-align-icon.png";
 import colorIcon from "../../../../assets/color-icon.png";
 import imageIcon from "../../../../assets/image-icon.png";
+import { BiExitFullscreen, BiFullscreen } from "react-icons/bi";
 
 const CreatePostEditor = ({
   descriptionFromEditor,
@@ -28,8 +29,25 @@ const CreatePostEditor = ({
     draftToHtml(convertToRaw(descriptionEditBox.getCurrentContent()))
   );
 
+  const [isExpandedPostBox, setIsExpandedPostBox] = useState(false);
+  const handleExpand = () => {
+    setIsExpandedPostBox((prev) => !prev);
+  };
+
   return (
-    <div className="w-full mx-auto text-left h-[20rem] flex flex-col gap-10">
+    <div
+      className={`w-full mx-auto text-left mt-2 flex flex-col gap-10 relative cursor-pointer
+    ${isExpandedPostBox ? "h-auto" : "h-[20rem]"}`}
+    >
+      <div
+        onClick={handleExpand}
+        className="absolute z-50 right-5 top-4 flex gap-2 items-center text-lightViolet text-sm group "
+      >
+        <div className="text-xs tracking-widest invisible group-hover:visible">
+          {isExpandedPostBox ? "Contract" : "Expand"}
+        </div>
+        {isExpandedPostBox ? <BiExitFullscreen /> : <BiFullscreen />}
+      </div>
       <Editor
         editorState={descriptionEditBox}
         toolbar={{

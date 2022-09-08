@@ -13,6 +13,7 @@ import leftAlignIcon from "../../../../assets/left-align-icon.png";
 import centerAlignIcon from "../../../../assets/center-align-icon.png";
 import colorIcon from "../../../../assets/color-icon.png";
 import imageIcon from "../../../../assets/image-icon.png";
+import { BiExitFullscreen, BiFullscreen } from "react-icons/bi";
 
 const TextEditor = ({ aboutMsg, setAboutMsg }) => {
   let editorState = EditorState.createEmpty();
@@ -23,8 +24,25 @@ const TextEditor = ({ aboutMsg, setAboutMsg }) => {
 
   setAboutMsg(draftToHtml(convertToRaw(description.getCurrentContent())));
 
+  const [isExpandedAboutMsg, setIsExpandedAboutMsg] = useState(false);
+  const handleExpand = () => {
+    setIsExpandedAboutMsg((prev) => !prev);
+  };
+
   return (
-    <div className="w-full mx-auto text-left h-[20rem] flex flex-col gap-10">
+    <div
+      className={`w-full mx-auto text-left mt-2 flex flex-col gap-10 relative cursor-pointer
+    ${isExpandedAboutMsg ? "h-auto" : "h-[20rem]"}`}
+    >
+      <div
+        onClick={handleExpand}
+        className="absolute z-50 right-5 top-4 flex gap-2 items-center text-lightViolet text-sm group "
+      >
+        <div className="text-xs tracking-widest invisible group-hover:visible">
+          {isExpandedAboutMsg ? "Contract" : "Expand"}
+        </div>
+        {isExpandedAboutMsg ? <BiExitFullscreen /> : <BiFullscreen />}
+      </div>
       <Editor
         editorState={description}
         toolbar={{

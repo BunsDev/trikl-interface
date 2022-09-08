@@ -891,6 +891,7 @@
 .public-DraftEditor-content {
   height: inherit;
   text-align: initial;
+  margin-top: 4rem;
 }
 .public-DraftEditor-content[contenteditable="true"] {
   -webkit-user-modify: read-write-plaintext-only;
@@ -1056,7 +1057,8 @@
 }
 
 .rdw-editor-toolbar {
-  float: left;
+  position: absolute;
+  top: 0;
   z-index: 20;
   background: #070031;
   width: 100%;

@@ -161,7 +161,10 @@ const CreatePost = () => {
             >
               Add some helpful details
             </label>
-            <div className="text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg">
+            <div
+              className="text-base text-left text-gray-400
+            font-poppins font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400"
+            >
               <CreatePostEditor
                 descriptionFromEditor={descriptionFromEditor}
                 setDescriptionFromEditor={setDescriptionFromEditor}

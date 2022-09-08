@@ -337,7 +337,7 @@ const CreateProfileForm = () => {
 
   return !isAuthenticated ? (
     <WalletNotConnected />
-  ) : isCurrCreator ? (
+  ) : !isCurrCreator ? (
     <AlreadyACreator creatorUsername={creatorUsername} />
   ) : (
     <form onSubmit={uploadUser} className="w-full mx-auto py-10">
