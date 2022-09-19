@@ -10,11 +10,11 @@ module.exports = {
         triklBlue: "#1400FF",
         triklGray: "#9A9A9A",
         triklOffWhite: "#F8FAFC",
+        lightBlue: "#bbd0ff",
 
         darkestBlue: "#151531",
         darkBlue: "#07004c",
         darkViolet: "#1b0033",
-        lightBlue: "#bbd0ff",
         lightViolet: "#c489fb",
         lightAccent: "#4ee7ff",
         blueAccent: "#1100ff",

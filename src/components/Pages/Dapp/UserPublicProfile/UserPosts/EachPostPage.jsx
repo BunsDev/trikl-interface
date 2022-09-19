@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import edjsHTML from "editorjs-html";
 import parse from "html-react-parser";
 import "./eachPost.css";
+import { useLocation } from "react-router-dom";
+import PageLoader from "../../../../Elements/PageLoader";
 
 const EachPostPage = () => {
-  const fetchUrl =
-    "https://bafybeiaqucdsmsq3w4civjeuzbnsjgxsuvra7vyjvcaqx5zqb7pbjz2fi4.ipfs.w3s.link/22840337685";
-  const [fetchedData, setFetchedData] = useState([]);
+  const location = useLocation();
+
+  const fetchUrl = location.state.data;
   const [parsedHTML, setParsedHTML] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(fetchUrl)
@@ -20,13 +23,15 @@ const EachPostPage = () => {
         } catch (error) {
           setParsedHTML("Some error occured");
         }
+        setIsLoading(false);
       });
   }, []);
 
-  console.log("received response === ", fetchedData);
-  console.log("HTML === ", parsedHTML);
-
-  return (
+  return isLoading ? (
+    <div className="w-full py-5">
+      <PageLoader width="100%" color="#c489fb" />
+    </div>
+  ) : (
     <div id="editorData" className="w-1/2 mx-auto py-20">
       <div>{parsedHTML.map((eachBlock) => parse(eachBlock))}</div>
     </div>

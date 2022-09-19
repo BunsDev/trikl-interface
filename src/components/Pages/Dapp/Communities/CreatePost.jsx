@@ -115,6 +115,7 @@ const CreatePost = () => {
         } else {
           isPaidString = "Free";
         }
+        console.log(isPaidString);
         userPost.set("CreatorAddress", userWalletAddress);
         userPost.set("Username", currUsername);
         userPost.set("IsPaid", isPaidString);

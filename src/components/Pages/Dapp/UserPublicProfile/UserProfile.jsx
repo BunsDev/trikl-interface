@@ -4,12 +4,12 @@ import { useOutletContext } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import MembershipCard from "./MembershipCard";
 import JoiningError from "./JoiningError";
-import UserPostFeed from "./UserPostFeed";
 import PageLoader from "../../../Elements/PageLoader";
 import { ClockLoader } from "react-spinners";
 import UserProfileNav from "./UserProfileNav";
 import UserTweetFeed from "./UserTweetFeed";
-import UserPublicPostFeed from "./UserPublicPostFeed";
+import UserPostFeed from "./UserPosts/UserPostFeed";
+import UserPublicPostFeed from "./UserPosts/UserPublicPostFeed";
 
 /////////////// MAIN FUNCTION ///////////////
 const UserProfile = ({ network }) => {
