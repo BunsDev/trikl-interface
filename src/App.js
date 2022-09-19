@@ -13,6 +13,7 @@ import ErrorPage from "./components/Pages/Dapp/ErrorPage";
 import CreateProfileForm from "./components/Pages/Dapp/CreateProfile/CreateProfileForm";
 import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import EachPostPage from "./components/Pages/Dapp/UserPublicProfile/UserPosts/EachPostPage";
 
 function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
   const serverUrl = useUrl;
@@ -33,6 +34,7 @@ function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
               <Route path="explore" element={<AllCommunities />} />
               <Route path="my-communities" element={<MyCommunities />} />
               <Route path="create-profile" element={<CreateProfileForm />} />
+              <Route path="post/:id" element={<EachPostPage />} />
               <Route path=":id" element={<UserProfile network={network} />} />
             </Route>
             <Route path="*" element={<ErrorPage />} />

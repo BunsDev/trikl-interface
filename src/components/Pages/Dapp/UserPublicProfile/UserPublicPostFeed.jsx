@@ -64,13 +64,16 @@ const EachPostCard = ({ userPosts, isJoinedMember, isCurrCreator }) => {
       {userPosts.map((eachPost) => (
         <div
           key={eachPost.id}
-          className="bg-black/30 rounded-lg text-base text-left text-gray-400 mb-10 p-5"
+          className="bg-white rounded-lg text-base text-left text-gray-400 mb-10 p-5"
         >
           <>
-            <p className="text-lightGrey text-2xl pt-5 border-b-2 border-lightViolet/10 pb-5">
+            <p className="text-textColor text-xl pt-5 border-b-2 border-lightViolet/10 pb-5">
               {eachPost.attributes.Title}
             </p>
-            <div id="editingPreview" className="pt-5">
+            <div
+              id="editingPreview"
+              className="pt-5 text-textColor/90 text-base"
+            >
               {parse(eachPost.attributes.Description)}
             </div>
             <div

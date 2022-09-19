@@ -1,0 +1,42 @@
+#editorData p,
+#editorData ul {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding-bottom: 8px;
+}
+
+#editorData ul {
+  padding-left: 35px;
+}
+
+#editorData li {
+  padding-bottom: 8px;
+  list-style: disc;
+}
+
+#editorData h2 {
+  font-size: 1.875rem /* 30px */;
+  line-height: 2.25rem /* 36px */;
+  text-align: center;
+  padding-bottom: 25px;
+  padding-top: 15px;
+}
+
+#editorData h3 {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#editorData img {
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+#editorData h4 {
+  padding-bottom: 8px;
+  padding-top: 15px;
+}
+
+#editorData b {
+  line-height: 50px;
+}

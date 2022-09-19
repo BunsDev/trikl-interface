@@ -4,9 +4,16 @@ import { useMoralisFile, useMoralis } from "react-moralis";
 import PageLoader from "../../../Elements/PageLoader";
 import "./CreatePost.css";
 import NotACreator from "./NotACreator";
-import CreatePostEditor from "./CreatePostEditor";
+import EditorJS from "@editorjs/editorjs";
+import { Web3Storage } from "web3.storage";
+import "../../../Elements/PostEditorSupport/editor.css";
+import PostEditorConfig from "../../../Elements/PostEditorSupport/PostEditorConfig";
 
 const CreatePost = () => {
+  // INIT EDITOR
+  const [editor, setEditor] = useState("");
+
+  // ---------------------------- MORALIS ------------------------- //
   // Import Moralis Functions
   const { saveFile } = useMoralisFile();
   const { Moralis, isAuthenticated } = useMoralis();
@@ -19,12 +26,10 @@ const CreatePost = () => {
   const [postingInProgress, setPostingInProgress] = useState(false);
   const navigate = useNavigate();
 
+  const [postCID, setPostCID] = useState("");
   const [isCreator, setIsCreator] = useState(false);
-  const [title, setTitle] = useState("");
-  const [videoUrl, setVideoUrl] = useState("");
   const [currUsername, setCurrUsername] = useState("");
-  const [descriptionFromEditor, setDescriptionFromEditor] = useState("");
-  const [isPaid, setIsPaid] = useState(true);
+  const [isPaid, setIsPaid] = useState(false);
 
   const userWalletAddress = isAuthenticated
     ? currentUser.attributes.ethAddress
@@ -41,6 +46,7 @@ const CreatePost = () => {
         ) {
           setIsCreator(true);
           setCurrUsername(eachCreator.attributes.Username);
+          setEditor(() => new EditorJS(PostEditorConfig()));
         }
       });
     } else {
@@ -48,68 +54,83 @@ const CreatePost = () => {
     }
   }, []);
 
-  //****************************** SAVING POST TO IPFS *****************************//
-
+  // ----------------------- INIT MORALIS DATABASE --------------------- //
   // Creating Object
-  const CreatorsPost = Moralis.Object.extend("Post");
+  const CreatorsPost = Moralis.Object.extend("PostCIDs");
   // Create a new instance of that class
-  const post = new CreatorsPost();
+  const userPost = new CreatorsPost();
 
-  // uploading file to IPFS
-  const uploadPost = async (event) => {
-    event.preventDefault();
-    //creating metadata to store on ipfs
+  // ----------------------- EDITOR HANDLE SAVE --------------------- //
 
+  const handleClick = async () => {
     setPostingInProgress(true);
 
-    let isPaidString;
-    if (isPaid) {
-      isPaidString = "Paid";
-    } else {
-      isPaidString = "Free";
-    }
+    await editor
+      .save()
+      .then(async (outputData) => {
+        console.log("Starting Upload To IPFS...");
 
-    const metadata = {
-      title,
-      description: descriptionFromEditor,
-      videoUrl,
-      userWalletAddress,
-      isPaidString,
-      currUsername,
-    };
-
-    try {
-      const result = await saveFile(
-        "newPost.json",
-        {
-          base64: btoa(unescape(encodeURIComponent(JSON.stringify(metadata)))),
-        },
-        {
-          type: "base64",
-          saveIPFS: true,
+        // START --- WEB3.STORAGE SETUP
+        function getAccessToken() {
+          return process.env.REACT_APP_WEB3STORAGE_TOKEN;
         }
-      );
-      const dataLink = result.ipfs();
-      let response = await fetch(dataLink);
-      let ipfsData = await response.json();
+        function makeStorageClient() {
+          return new Web3Storage({ token: getAccessToken() });
+        }
 
-      post.set("Title", ipfsData.title);
-      post.set("Description", ipfsData.description);
-      post.set("VideoUrl", ipfsData.videoUrl);
-      post.set("IsPaid", ipfsData.isPaidString);
-      post.set("CreatorAddress", ipfsData.userWalletAddress);
-      post.set("Username", ipfsData.currUsername);
+        // START --- UPLOADING TO IPFS WITH WEB3.STORAGE
+        function makeFileObjects(dataObject, fileName) {
+          const blob = new Blob([JSON.stringify(dataObject)], {
+            type: "application/json",
+          });
+          const files = [
+            new File(["contents-of-file-1"], "plain-utf8.txt"),
+            new File([blob], fileName),
+          ];
+          return files;
+        }
 
-      await post.save();
+        async function storeFiles(files) {
+          const client = makeStorageClient();
+          const cid = await client.put(files);
+          console.log("stored files with cid:", cid);
+          return cid;
+        }
 
-      //////////// REDIRECTING TO EXPLORE PAGE ////////////
-      setPostingInProgress(false);
-      navigate(`/dapp/${currUsername}`);
+        let uploadedFileName = Math.round(Math.random() * 10e10);
+        const dataToBeStored = {
+          outputData,
+          uploadedFileName,
+        };
 
-      // spacer //
-    } catch (error) {
-      alert(error.message);
-    }
+        const fileToUpload = makeFileObjects(dataToBeStored, uploadedFileName);
+        const ipfsRes = await storeFiles(fileToUpload);
+        const responseUrl = `https://${ipfsRes}.ipfs.w3s.link/${uploadedFileName}`;
+
+        ///////////////// UPLOADING TO MORALIS ////////////////////
+
+        let isPaidString;
+        if (isPaid) {
+          isPaidString = "Paid";
+        } else {
+          isPaidString = "Free";
+        }
+        userPost.set("CreatorAddress", userWalletAddress);
+        userPost.set("Username", currUsername);
+        userPost.set("IsPaid", isPaidString);
+        userPost.set("PostDataCID", responseUrl);
+
+        await userPost.save();
+
+        //////////// REDIRECTING TO EXPLORE PAGE ////////////
+        setPostingInProgress(false);
+        navigate(`/dapp/${currUsername}`);
+
+        /////////////////////////////////////////////
+      })
+      .catch((error) => {
+        console.log("Saving failed: ", error);
+      });
   };
 
   return isAuthenticated && isCreator ? (
@@ -122,92 +143,28 @@ const CreatePost = () => {
         <div className="hidden"></div>
       )}
 
-      <h2
-        className="text-4xl text-center text-lightViolet font-semibold capitalize
-        w-full sticky top-0 z-40
-        backdrop-blur-md py-5"
-      >
-        Share Something With Your Community!
-      </h2>
-
-      {/* Form for creating envelope */}
-      <form onSubmit={uploadPost} c className="grid grid-cols-12 pt-10 pb-20">
-        <div className="col-span-2"></div>
-        {/* left side */}
-        <section className="col-span-8 flex flex-col gap-8">
-          <div className="w-full flex flex-col gap-2 text-left">
-            <label
-              htmlFor="username"
-              className="text-lightViolet text-base tracking-widest font-light"
-            >
-              What Are You Thinking About?
-            </label>
-            <input
-              type="text"
-              className="rounded-lg text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg p-2 bg-transparent border-[1px] border-gray-700"
-              placeholder="Choose an interesting and descriptive title!"
-              id="username"
-              required
-              name="username"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-
-          <div className="w-full flex flex-col gap-2 text-left">
-            <label
-              htmlFor="userMessage"
-              className="text-lightViolet text-base tracking-widest font-light"
-            >
-              Add some helpful details
-            </label>
-            <div
-              className="text-base text-left text-gray-400
-            font-poppins font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400"
-            >
-              <CreatePostEditor
-                descriptionFromEditor={descriptionFromEditor}
-                setDescriptionFromEditor={setDescriptionFromEditor}
-              />
-            </div>
-          </div>
-
-          <div className="w-full flex flex-col gap-2 text-left">
-            <label
-              htmlFor="videoLink"
-              className="text-lightViolet text-base tracking-widest font-light"
-            >
-              Add a Video Link (YouTube or Vimeo)
-            </label>
-            <input
-              type="url"
-              className="rounded-lg text-lightAccent font-light placeholder:font-normal placeholder:text-base placeholder:text-gray-400 text-lg p-2 bg-transparent border-[1px] border-gray-700"
-              placeholder="Add an video link for your exclusive community members (can be unlisted)"
-              id="videoLink"
-              name="videoLink"
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
-            />
-          </div>
-
-          <FreeOrPaidCheck isPaid={isPaid} setIsPaid={setIsPaid} />
-
-          <div className="w-full flex flex-col gap-2 text-left">
+      <div className="flex flex-col gap-5 justify-center pt-20">
+        <div className="text-left mx-20 py-5 flex items-center justify-between border-b-2 border-triklGray/20">
+          <h2 className="text-2xl font-semibold">
+            The World Wants To Hear You!
+          </h2>
+          <div className="flex gap-4 items-center">
+            <FreeOrPaidCheck isPaid={isPaid} setIsPaid={setIsPaid} />
             <button
-              type="submit"
-              className="bg-gradient-to-tr from-violetAccent to-blueAccent 
-            text-baseWhite font-semibold w-full text-center px-5 py-2 rounded-lg 
-              ease-in-out duration-300  hover:py-3
-              cursor-pointer"
+              onClick={handleClick}
+              className="bg-lightBlue hover:bg-triklBlue hover:text-white w-max rounded-md px-5 py-1 text-base transition-all duration-300 ease-in-out"
             >
-              Post
+              Publish
             </button>
           </div>
-        </section>
-      </form>
+        </div>
+        <div id="editorjs"></div>
+      </div>
     </div>
   ) : (
-    <NotACreator />
+    <div>
+      <NotACreator />
+    </div>
   );
 };
 
@@ -215,10 +172,7 @@ export default CreatePost;
 
 const FreeOrPaidCheck = ({ isPaid, setIsPaid }) => {
   return (
-    <label
-      htmlFor="isPaid"
-      className="relative bg-transparent border-[1px] border-gray-700 w-40 h-8 rounded-full cursor-pointer"
-    >
+    <div className="flex items-center gap-2">
       <input
         type="checkbox"
         name="isPaid"
@@ -226,18 +180,13 @@ const FreeOrPaidCheck = ({ isPaid, setIsPaid }) => {
         value={isPaid}
         defaultChecked={isPaid}
         onChange={(e) => setIsPaid(e.target.checked)}
-        className="sr-only peer"
+        className="bg-triklGray/20 border-triklGray text-triklBlue focus:ring-transparent rounded-md p-2"
       />
-      <span className="h-4/5 aspect-square opacity-100 bg-lightViolet absolute rounded-full top-1/2 -translate-y-1/2 left-1 peer-checked:opacity-0 transition-all duration-300"></span>
-      <span className="h-4/5 aspect-square opacity-0 bg-lightAccent absolute rounded-full top-1/2 -translate-y-1/2 right-1 peer-checked:opacity-100 transition-all duration-300"></span>
-
       <span
-        className={`absolute top-1/2 -translate-y-1/2 right-5 peer-checked:right-16 min-w-max transition-all duration-300 font-light ${
-          isPaid ? "text-lightAccent" : "text-lightViolet"
-        }`}
+        className={`text-base ${isPaid ? "text-triklBlue" : "text-triklGray"} `}
       >
-        {isPaid ? "Paid Post" : "Free Post"}
+        Paid Post
       </span>
-    </label>
+    </div>
   );
 };

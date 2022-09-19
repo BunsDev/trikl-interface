@@ -129,7 +129,7 @@ const UserProfile = ({ network }) => {
             )}
           </section>
 
-          <aside className="col-span-3 sticky top-10 bg-black/30 rounded-xl h-max overflow-hidden">
+          <aside className="col-span-3 sticky top-10 bg-lightBlue/20 rounded-xl h-max overflow-hidden">
             <MembershipCard
               userInfo={userInfo}
               creatorsData={creatorsData}

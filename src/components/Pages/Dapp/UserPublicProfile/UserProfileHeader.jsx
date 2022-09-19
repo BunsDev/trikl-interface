@@ -29,10 +29,10 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
 
           {/* Name section */}
           <header className="text-left w-full">
-            <h2 className="text-3xl text-lightAccent font-semibold">
+            <h2 className="text-3xl text-textColor font-semibold">
               {userInfo.Alias}
             </h2>
-            <div className="text-base text-gray-400">@{userInfo.Username}</div>
+            <div className="text-base text-triklBlue">@{userInfo.Username}</div>
           </header>
         </div>
 
@@ -40,7 +40,7 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
         <ul className="flex justify-between text-2xl text-center items-center gap-2 text-gray-400 border-b-2 border-t-2 border-lightViolet/20">
           {/* spacer */}
           <li className="py-1 w-1/2 ease-in-out duration-300">
-            <p className="text-lg font-semibold text-lightViolet">
+            <p className="text-lg font-semibold text-textColor">
               <span className="text-xl">
                 {Intl.NumberFormat().format(membershipCount)}{" "}
               </span>
@@ -91,13 +91,13 @@ const UserProfileHeader = ({ userInfo, membershipCount }) => {
         </ul>
       </section>
       <aside className="text-left">
-        <div className="pb-2 text-lightViolet text-2xl">
+        <div className="pb-2 text-textColor font-semibold text-xl">
           About {userInfo.Username}
         </div>
         <div
           id="editingPreview"
           // className="font-light text-justify text-base text-gray-400"
-          className="text-gray-400"
+          className="text-textColor text-base"
         >
           {parse("" + userInfo.Message)}
         </div>

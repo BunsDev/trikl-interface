@@ -28,11 +28,11 @@ const DappHome = () => {
   return (
     <div
       className="grid grid-cols-12 mx-auto justify-between scroll-smooth
-      font-inter text-white text-lg 
-    bg-gradient-to-tr from-black via-darkBlue to-darkViolet bg-fixed relative"
+      font-inter text-textColor text-lg 
+    bg-triklOffWhite bg-fixed relative"
     >
       {/* MOBILE */}
-      <div className="md:hidden absolute w-full h-full z-[100] flex justify-center text-lg text-baseWhite bg-black/80 backdrop-blur-md text-left">
+      <div className="md:hidden absolute w-full h-full z-[100] flex justify-center text-lg text-textColor bg-triklGray backdrop-blur-md text-left">
         <div className="w-2/3 pt-10">
           Please Try Again With A Desktop Device! <br /> <br /> Trikl dApp is
           currently{" "}

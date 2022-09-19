@@ -33,8 +33,8 @@ const EachCommunityCard = ({ eachCreator }) => {
   return (
     <div
       className="flex flex-col
-      text-left text-base font-light text-gray-300
-    bg-black/30 hover:bg-black/50 rounded-lg px-16 py-10"
+      text-left text-base font-light text-textColor
+    bg-white hover:bg-lightBlue/20 rounded-lg px-16 py-10"
     >
       <div className="flex gap-5 relative">
         {eachCreator.attributes.ProfPicUrl &&
@@ -56,7 +56,7 @@ const EachCommunityCard = ({ eachCreator }) => {
           <h2 className="text-2xl font-semibold">
             {eachCreator.attributes.Alias}
           </h2>
-          <sub className="text-lightViolet text-lg">
+          <sub className="text-triklBlue text-lg">
             @{eachCreator.attributes.Username}
           </sub>
         </div>
@@ -69,13 +69,13 @@ const EachCommunityCard = ({ eachCreator }) => {
           bg-gradient-to-tr from-violetAccent to-blueAccent 
             text-baseWhite font-semibold rounded-lg 
               ease-in-out duration-300 
-              hover:px-6 hover:bg-lightAccent cursor-pointer"
+              hover:px-6 cursor-pointer"
           to={`/dapp/${eachCreator.attributes.Username}`}
         >
           See more
         </NavLink>
         <div className="">
-          <span className="text-lightAccent text-2xl font-semibold">
+          <span className="text-textColor text-2xl font-semibold">
             {membershipCount}
           </span>{" "}
           <span>Members</span>

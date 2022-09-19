@@ -175,12 +175,12 @@ const MembershipCard = ({
 
   return (
     <div className="py-10 px-10 text-center">
-      <h3 className="text-lightViolet text-2xl">Become A Member</h3>
+      <h3 className="text-textColor font-semibold text-2xl">Become A Member</h3>
 
       <div className="py-5">
         <p className="text-3xl">{userInfo.Membership_charges}</p>
-        <p className="uppercase text-lightGrey/70 text-sm tracking-widest">
-          <span className="text-lightViolet font-semibold">MATIC</span> per
+        <p className="uppercase text-triklGray text-sm tracking-widest">
+          <span className="text-triklBlue/70 font-semibold">MATIC</span> per
           month
         </p>
 
@@ -188,19 +188,20 @@ const MembershipCard = ({
           <LoginButton />
         ) : isJoinedMember || isCurrCreator ? (
           <button
-            className="bg-lightViolet/20 text-gray-400 font-semibold w-full px-10 py-2 rounded-lg 
-                 mx-auto my-5"
+            className="bg-triklBlue/50 mt-2
+            text-baseWhite font-semibold w-max px-5 py-2 rounded-lg 
+              ease-in-out duration-300 
+              cursor-pointer"
             disabled
           >
             {isCurrCreator ? "Active" : "Joined"}
           </button>
         ) : (
           <button
-            className="bg-gradient-to-tr from-violetAccent to-blueAccent
-               text-baseWhite font-semibold w-full px-10 py-2 rounded-lg 
-               hover:py-5
-                 ease-in-out duration-500 
-                 mx-auto my-5"
+            className="bg-triklBlue mt-2
+            text-baseWhite font-semibold w-max px-5 py-2 rounded-lg 
+              ease-in-out duration-300 
+              cursor-pointer"
             disabled={joinDisabled}
             onClick={() => handleClick({ userInfo })}
           >
@@ -210,11 +211,13 @@ const MembershipCard = ({
       </div>
 
       <div className="text-base text-left text-gray-400 border-t-2 border-lightViolet/20">
-        <p className="pb-5 pt-8 text-lg text-center text-lightViolet">
+        <p className="pb-5 pt-8 text-lg text-center text-textColor">
           Membership Benefits
         </p>
 
-        <div id="editingPreview">{parse("" + userInfo.Why_Message)}</div>
+        <div id="editingPreview text-textColor">
+          {parse("" + userInfo.Why_Message)}
+        </div>
       </div>
     </div>
   );

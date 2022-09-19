@@ -6,6 +6,11 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
+        textColor: "#222222",
+        triklBlue: "#1400FF",
+        triklGray: "#9A9A9A",
+        triklOffWhite: "#F8FAFC",
+
         darkestBlue: "#151531",
         darkBlue: "#07004c",
         darkViolet: "#1b0033",
@@ -19,5 +24,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

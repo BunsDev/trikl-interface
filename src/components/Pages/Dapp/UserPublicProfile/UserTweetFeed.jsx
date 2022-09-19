@@ -30,7 +30,7 @@ const UserTweetFeed = ({ userInfo }) => {
           <TwitterTimelineEmbed
             sourceType="timeline"
             screenName={twitterUsername}
-            theme="dark"
+            theme="light"
             backgroundColor="#ff4e4e"
             onLoad={function noRefCheck() {}}
           />

@@ -29,17 +29,17 @@ const DappSidebar = () => {
 
   return (
     <div
-      className="h-screen border-r-2 border-lightViolet/20 
+      className="h-screen border-r-2 border-lightBlue/20 bg-lightBlue/20
     flex flex-col justify-between items-start py-10 pl-5 text-base font-light"
     >
-      <div className="cursor-pointer text-lightAccent">
+      <div className="cursor-pointer text-triklBlue">
         <NavLink to="/dapp/explore" className="font-bold text-3xl">
           Trikl
         </NavLink>
       </div>
 
       <div className="rounded-lg flex flex-col gap-2 pb-5">
-        <p className="w-3/4 text-left text-sm text-lightViolet">
+        <p className="w-3/4 text-left text-sm text-triklBlue">
           Are you a web3 content Creator?
         </p>
         <NavLink
@@ -58,7 +58,7 @@ const DappSidebar = () => {
         <NavLink
           key={eachItem.name}
           to={eachItem.link}
-          className="flex gap-2 items-center hover:text-lightAccent cursor-pointer"
+          className="flex gap-2 items-center hover:text-triklBlue cursor-pointer"
         >
           {eachItem.iconName}
           <p>{eachItem.name}</p>
@@ -69,7 +69,7 @@ const DappSidebar = () => {
         <DappChains />
       </div>
 
-      <div className="font-semibold text-lg text-lightAccent cursor-pointer">
+      <div className="font-semibold text-lg text-triklBlue cursor-pointer">
         {isAuthenticated ? <LogoutButton /> : <LoginButton />}
       </div>
     </div>

@@ -57,7 +57,7 @@ const DappChains = () => {
         onClick={switchToMainnet}
         className={`${
           chainId === PolygonMainnetChainId
-            ? "text-lightViolet font-semibold py-1 text-left flex gap-2"
+            ? "text-triklBlue font-semibold py-1 text-left flex gap-2"
             : "text-sm"
         }`}
       >
@@ -74,7 +74,7 @@ const DappChains = () => {
         onClick={switchToTestnet}
         className={`${
           chainId === PolygonTestnetChainId
-            ? "text-lightViolet font-semibold py-1 text-left flex gap-2"
+            ? "text-triklBlue font-semibold py-1 text-left flex gap-2"
             : "text-sm"
         }`}
       >
