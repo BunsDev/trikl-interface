@@ -61,7 +61,7 @@ export default UserPostFeed;
 ////////////// EACH POST CARD - NOT ACCESSBILE POSTS //////////////
 const PostNotAccessible = () => {
   return (
-    <div>
+    <div className="bg-white hover:drop-shadow-md rounded-md p-5 mb-5 transition-all duration-300 ease-in-out">
       <p className="text-lightViolet text-center text-lg pb-2">
         Sorry, Post Unavailable!
       </p>
