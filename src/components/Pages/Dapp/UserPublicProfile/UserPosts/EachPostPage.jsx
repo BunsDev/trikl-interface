@@ -2,29 +2,53 @@ import React, { useEffect, useState } from "react";
 import edjsHTML from "editorjs-html";
 import parse from "html-react-parser";
 import "./eachPost.css";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PageLoader from "../../../../Elements/PageLoader";
+import Moralis from "moralis";
+import axios from "axios";
 
 const EachPostPage = () => {
-  const location = useLocation();
+  const params = useParams();
 
-  const fetchUrl = location.state.data;
+  const [isLoading, setIsLoading] = useState(false);
   const [parsedHTML, setParsedHTML] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(fetchUrl)
-      .then((res) => res.json())
-      .then((resJSON) => {
+    setIsLoading(true);
+    let cidUrl;
+
+    const Posts = Moralis.Object.extend("PostCIDs");
+    const query = new Moralis.Query(Posts);
+
+    const fetchPostData = async () => {
+      query.equalTo("objectId", params.id);
+      const results = await query.find();
+      cidUrl = results[0].attributes.PostDataCID;
+
+      // NOW FETCHING JSON OF THAT CID
+      async function getJsonData(dataUrl) {
         try {
+          const response = await axios.get(dataUrl);
+          const respData = response.data;
+          // Converting received Response to HTML
           const edjsParser = edjsHTML();
-          const html = edjsParser.parse(resJSON.outputData);
+          const html = edjsParser.parse(respData.outputData);
           setParsedHTML(html);
         } catch (error) {
-          setParsedHTML("Some error occured");
+          console.error(error);
         }
-        setIsLoading(false);
-      });
+      }
+
+      getJsonData(cidUrl);
+    };
+
+    try {
+      fetchPostData();
+      setIsLoading(false);
+    } catch (error) {
+      alert("Some Error Occured. ", error.message);
+      setIsLoading(false);
+    }
   }, []);
 
   return isLoading ? (
@@ -33,7 +57,9 @@ const EachPostPage = () => {
     </div>
   ) : (
     <div id="editorData" className="w-1/2 mx-auto py-20">
-      <div>{parsedHTML.map((eachBlock) => parse(eachBlock))}</div>
+      {parsedHTML.map((eachBlock, index) => {
+        return <div key={index}>{parse(eachBlock)}</div>;
+      })}
     </div>
   );
 };

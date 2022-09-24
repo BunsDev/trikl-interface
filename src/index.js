@@ -21,7 +21,7 @@ const getChainId = async () => {
   if (provider !== "") {
     network = (await provider.getNetwork()).chainId;
   } else {
-    network = 137;
+    network = 80001;
     isMetamaskInstalled = false;
   }
 };

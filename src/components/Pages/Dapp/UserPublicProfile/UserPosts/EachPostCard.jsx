@@ -32,6 +32,9 @@ const EachPostCard = ({ eachPost }) => {
   const eachCID = eachPost.attributes.PostDataCID;
   const createdAtDate = new Date(eachPost.attributes.createdAt);
 
+  console.log("Postid >>>", eachPost.id);
+  console.log("PostCID>>>", eachCID);
+
   return dataFetched ? (
     <Link to={`/dapp/post/${eachPost.id}`} state={{ data: eachCID }}>
       <div className="bg-white hover:drop-shadow-md rounded-md p-5 mb-5 transition-all duration-300 ease-in-out">
