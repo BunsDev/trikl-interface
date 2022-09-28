@@ -19,7 +19,6 @@ const EachPostPage = () => {
 
     const Posts = Moralis.Object.extend("PostCIDs");
     const query = new Moralis.Query(Posts);
-
     const fetchPostData = async () => {
       query.equalTo("objectId", params.id);
       const results = await query.find();
@@ -56,10 +55,14 @@ const EachPostPage = () => {
       <PageLoader width="100%" color="#c489fb" />
     </div>
   ) : (
-    <div id="editorData" className="w-1/2 mx-auto py-20">
-      {parsedHTML.map((eachBlock, index) => {
-        return <div key={index}>{parse(eachBlock)}</div>;
-      })}
+    <div>
+      <h1> Hello </h1>
+
+      <div id="editorData" className="w-1/2 mx-auto py-20">
+        {parsedHTML.map((eachBlock, index) => {
+          return <div key={index}>{parse(eachBlock)}</div>;
+        })}
+      </div>
     </div>
   );
 };

@@ -59,7 +59,7 @@ const UserProfile = ({ network }) => {
   };
 
   // Nav links
-  const [activeUserTab, setActiveUserTab] = useState("");
+  const [activeUserTab, setActiveUserTab] = useState("publicFeed");
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,7 +67,7 @@ const UserProfile = ({ network }) => {
       await getQuery();
       await getMembership();
       setIsLoading(false);
-      setActiveUserTab("exclusivePost");
+      setActiveUserTab("publicFeed");
     }, 10);
   }, []);
 
