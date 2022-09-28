@@ -56,8 +56,6 @@ const EachPostPage = () => {
     </div>
   ) : (
     <div>
-      <h1> Hello </h1>
-
       <div id="editorData" className="w-1/2 mx-auto py-20">
         {parsedHTML.map((eachBlock, index) => {
           return <div key={index}>{parse(eachBlock)}</div>;
