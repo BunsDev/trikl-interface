@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       },
       colors: {
         textColor: "#222222",
@@ -12,6 +13,11 @@ module.exports = {
         triklOffWhite: "#F8FAFC",
         lightBlue: "#bbd0ff",
 
+        BootcampBg: "#F4F4F2",
+        BootcampText: "#B722BA",
+        BootcampContentBg: "#EEDFF3",
+
+        // Other colors
         darkestBlue: "#151531",
         darkBlue: "#07004c",
         darkViolet: "#1b0033",
