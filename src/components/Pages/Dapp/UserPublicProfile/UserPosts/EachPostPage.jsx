@@ -22,6 +22,7 @@ const EachPostPage = () => {
     const fetchPostData = async () => {
       query.equalTo("objectId", params.id);
       const results = await query.find();
+      console.log(results);
       cidUrl = results[0].attributes.PostDataCID;
 
       // NOW FETCHING JSON OF THAT CID

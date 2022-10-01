@@ -19,24 +19,25 @@ const Home = () => {
         <Header />
       </div>
 
-      <div id="about">
+      {/* <div id="about">
         <About />
-      </div>
-      <div id="productDemo">
+      </div> */}
+      {/* <div id="productDemo">
         <ProductDemo />
       </div>
       <div id="tryNow">
         <TryNow />
+      </div> */}
+      <div id="poweredBy">
+        <PoweredBy />
       </div>
       <div id="backedBy">
         <BackedBy />
       </div>
-      <div id="poweredBy">
-        <PoweredBy />
-      </div>
-      <div id="roadmap">
+
+      {/* <div id="roadmap">
         <Roadmap />
-      </div>
+      </div> */}
       <div id="team">
         <Team />
       </div>

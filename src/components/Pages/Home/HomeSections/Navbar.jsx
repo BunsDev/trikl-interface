@@ -8,9 +8,9 @@ import { FiMenu } from "react-icons/fi";
 
 const Navbar = () => {
   const navLinks = [
-    { name: "About", link: "about" },
-    { name: "Demo", link: "productDemo" },
-    { name: "Roadmap", link: "roadmap" },
+    // { name: "About", link: "about" },
+    // { name: "Demo", link: "productDemo" },
+    // { name: "Roadmap", link: "roadmap" },
     { name: "Team", link: "team" },
     { name: "Contact", link: "contact" },
   ];
