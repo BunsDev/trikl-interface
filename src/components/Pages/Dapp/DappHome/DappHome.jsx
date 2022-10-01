@@ -32,7 +32,7 @@ const DappHome = () => {
     bg-triklOffWhite bg-fixed relative"
     >
       {/* MOBILE */}
-      <div className="md:hidden absolute w-full h-full z-[100] flex justify-center text-lg text-textColor bg-triklGray backdrop-blur-md text-left">
+      {/* <div className="md:hidden absolute w-full h-full z-[100] flex justify-center text-lg text-textColor bg-triklGray backdrop-blur-md text-left">
         <div className="w-2/3 pt-10">
           Please Try Again With A Desktop Device! <br /> <br /> Trikl dApp is
           currently{" "}
@@ -41,15 +41,15 @@ const DappHome = () => {
           </span>{" "}
           only...
         </div>
-      </div>
+      </div> */}
 
       {/* SIDEBAR */}
-      <div className="col-span-2 h-screen sticky top-0">
+      <div className="col-span-2 h-screen sticky top-0 hidden md:block">
         <DappSidebar />
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="col-span-10">
+      <div className="col-span-12 md:col-span-10">
         {isLoading ? <PageLoader /> : <Outlet context={creatorsData} />}
       </div>
     </div>

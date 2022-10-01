@@ -10,11 +10,13 @@ import Header from "./HomeSections/Header";
 import PoweredBy from "./HomeSections/PoweredBy";
 import BackedBy from "./HomeSections/BackedBy";
 import ProductDemo from "./HomeSections/ProductDemo";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
     <div className="scroll-smooth font-inter text-gray-300 text-lg md:text-xl w-screen bg-gradient-to-tr from-black via-darkBlue to-darkViolet bg-fixed">
       <Navbar />
+
       <div id="header">
         <Header />
       </div>
@@ -45,8 +47,24 @@ const Home = () => {
         <Footer />
       </div>
       <AllRightsReserved />
+      <div id="bootcampNotif">
+        <NotificationBar />
+      </div>
     </div>
   );
 };
 
 export default Home;
+
+const NotificationBar = () => {
+  return (
+    <div
+      className="fixed bottom-0 z-40
+    border-t-2 border-lightBlue/10 py-2 text-base font-semibold font-poppins uppercase tracking-widest text-center bg-lightAccent text-darkBlue px-20 mx-auto md:w-full"
+    >
+      <NavLink to="/bootcamp" target="_blank">
+        Register For Our Creators Bootcamp
+      </NavLink>
+    </div>
+  );
+};
