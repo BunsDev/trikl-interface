@@ -18,8 +18,8 @@ const Header = () => {
             web 3.0 communities
           </h1>
           <sub className="text-base md:text-lg text-lightViolet">
-            Form on-chain communities, share investment advice, educational
-            content, and monetize your efforts with recurring crypto payments.
+            Web3 native Engage-2-Earn Blogging platform. <br></br> Writing
+            something? Join us!
           </sub>
         </section>
 
