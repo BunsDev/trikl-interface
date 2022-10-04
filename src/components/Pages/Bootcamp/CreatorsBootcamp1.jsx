@@ -1,16 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMoralis } from "react-moralis";
 import Bootcamp1HeroCow from "../../../assets/bootcamp1heroCow.png";
 import Bootcamp1mobile from "../../../assets/bootcamp1mobile.png";
 import Bootcamp1Coder from "../../../assets/bootcamp1Coder.png";
 import Bootcamp1achievingGoal from "../../../assets/bootcamp1achievingGoal.png";
 import Bootcamp1Clock from "../../../assets/bootcamp1Clock.png";
 import { NavLink, useNavigate } from "react-router-dom";
+import PageLoader from "../../Elements/PageLoader";
 
 const CreatorsBootcamp1 = () => {
-  const navigate = useNavigate();
+  // // const navigate = useNavigate();
+  const { Moralis, isInitialized } = useMoralis();
+  const [coach, setCoach] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const onClickRegister = () => {};
-  return (
+  // useEffect(() => {
+  //   setIsLoading(true);
+
+  //   const coaches = Moralis.Object.extend("Coaches");
+
+  //   const getCoachData = async () => {
+  //     const query = new Moralis.Query(coaches);
+  //     const coach = await query.find();
+  //     setCoach(coach);
+  //     console.log("This is test1 -------->", coach);
+  //   };
+
+  //   if (isInitialized) {
+  //     try {
+  //       getCoachData();
+  //     } catch (error) {
+  //       alert("Some Error Occured. ", error.message);
+  //     }
+  //   }
+
+  //   setIsLoading(false);
+  // }, []);
+
+  // const getQuery = async () => {
+
+  //   const coach = await query.find();
+  //   setCoach(coach);
+  //   console.log("This is test1 -------->", coach);
+  // };
+
+  return isLoading ? (
+    <div className="w-full py-5">
+      <PageLoader width="100%" color="#c489fb" />
+    </div>
+  ) : (
     <div className="bg-BootcampBg grid grid-cols-12">
       <div className="w-full h-max top-0 fixed z-40 bg-BootcampContentBg/50 backdrop-blur-lg">
         <BootcampNav />
@@ -20,6 +58,7 @@ const CreatorsBootcamp1 = () => {
         <What />
         <Selection />
         <RegisterForm />
+        {/* <Coaches coach={coach} /> */}
         <Dates />
       </div>
     </div>
@@ -40,7 +79,7 @@ const BootcampNav = () => {
   return (
     <div className="grid grid-cols-12 mx-auto">
       <div className="col-span-8 col-start-3 flex justify-between py-3">
-        <h1 className="font-poppins font-semibold text-triklBlue text-3xl">
+        <h1 className="font-poppins font-semibold text-BootcampText text-3xl">
           <NavLink to="/" target="_blank">
             TRIKL
           </NavLink>
@@ -60,21 +99,24 @@ const Hero = () => {
     <div className="flex flex-col-reverse md:flex-row md:justify-between gap-20 items-center md:h-screen font-poppins pt-20">
       <section className="flex flex-col gap-3 md:gap-6 items-start md:w-1/2 text-center md:text-left">
         <h2 className="text-5xl md:text-6xl w-full text-BootcampText font-medium">
-          Stand Out
+          Bootcamp
         </h2>
         <h3 className="w-full uppercase tracking-[0.5rem] md:tracking-[0.8rem] text-xl md:text-2xl">
-          As A Creator
+          for Creators
         </h3>
         <p className="text-base pt-4 md:pt-0">
           In a world where millions of creators upload billions of hours of
-          content every single second, how can you become{" "}
-          <span className="uppercase text-BootcampText">the purple cow</span>{" "}
+          content every single second, how can you become
+          <span className="uppercase text-BootcampText">
+            the purple cow
+          </span>{" "}
           that stands out?
         </p>
         <p className="text-base  pb-4 md:pb-0">
-          This free, intensive, creative ideation bootcamp will help you answer
-          this question. Top web3 leaders, content creators and community
-          builders will teach you content creation strategies. Kicking off soon!
+          This free, intensive, creative ideation Bootcamp will help you answer
+          this question. Top web3 leaders, content creators, and community
+          builders will teach content creation strategies. We are kicking off
+          soon!
         </p>
         <div className="w-full mx-auto text-center">
           <a href="https://forms.gle/Mp21rHwbF5tERsit7" target="_blank">
@@ -124,7 +166,7 @@ const What = () => {
             Limited Cohort Size
           </div>
           <div className="bg-BootcampContentBg w-full h-16 md:h-20 flex items-center justify-center rounded-md mx-auto text-center hover:drop-shadow-lg transition-all duration-300 ease-in-out text-lg px-5">
-            Dobut Sessions
+            Doubt Sessions
           </div>
         </div>
       </section>
@@ -141,7 +183,7 @@ const Selection = () => {
         </h2>
         <ul className="flex flex-col gap-3 ml-5">
           <li className="list-disc">
-            Only serious & ambitious participants would be selected basis
+            Only serious & ambitious participants would be selected basis of the
             application
           </li>
           <li className="list-disc">
@@ -150,13 +192,14 @@ const Selection = () => {
           </li>
           <li className="list-disc">
             Open to absolutely anyone to apply. However, priority will be given
-            to those in Web3 space
+            to those in the Web3 space
           </li>
           <li className="list-disc">
-            This programme is completely free, bar a small $5 deposit (returned
-            upon having completed the course) (Scholarships on-request)
+            NFTs and Merch will be given to participants. The fee for attending
+            the Bootcamp is $5 (the idea is to make sure only serious applicants
+            join)
           </li>
-          <li className="list-disc">Programme is designed to be part-time</li>
+          <li className="list-disc">The program is designed to be part-time</li>
           <li className="list-disc">
             You must commit to attending each of the classes
           </li>
@@ -190,8 +233,8 @@ const RegisterForm = () => {
         </h2>
         <p className="text-center md:text-right">
           Web3 is by the community, for the community & with the community. This
-          makes you as a creator & a community leader one of the most crucial
-          element of the world’s greatest global digital revolution!
+          makes you, as a creator & a community leader, one of the most crucial
+          elements of the world ’s greatest global digital revolution!
         </p>
         <div className="w-full md:w-1/2 text-center">
           <a href="https://forms.gle/Mp21rHwbF5tERsit7" target="_blank">
@@ -202,6 +245,20 @@ const RegisterForm = () => {
     </div>
   );
 };
+
+// const Coaches = ({ coach }) => {
+//   console.log("this is test--->>>", coach);
+//   // coach.map((eachCoach) => {
+//   //   return (
+//   //     <div className="flex flex-col-reverse md:flex-row justify-end items-center mb-40">
+//   //       <img />
+//   //       <h1> {eachCoach.attributes.Name}</h1>
+//   //       <h2> {eachCoach.attributes.Designation}</h2>
+//   //       <a href={eachCoach.attributes.Twitter}> twiietr </a>
+//   //     </div>
+//   //   );
+//   // });
+// };
 
 const Dates = () => {
   return (
@@ -219,3 +276,21 @@ const Dates = () => {
     </div>
   );
 };
+
+// useEffect(() => {
+//   const getQuery = async () => {
+//     // setIsLoading(true);
+
+//     const query = new Moralis.Query("Coaches");
+//     const coaches = await query.find();
+//     console.log(coaches);
+
+//     // setCoach(coaches);
+
+//     // setIsLoading(false);
+//   };
+
+//   getQuery();
+// }, []);
+
+// console.log("CoachDetails = ", coach);
