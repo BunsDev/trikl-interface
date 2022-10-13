@@ -72,19 +72,18 @@ const Navbar = () => {
           ))}
 
           <div className="hover:text-lightAccent my-auto">
-            <NavLink
-              to="/dapp/explore"
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              to={navLinks[1].link}
               className="bg-gradient-to-tr from-violetAccent to-blueAccent 
             text-baseWhite font-semibold w-max px-5 py-2 rounded-lg 
               ease-in-out duration-300 
               mx-auto flex items-center gap-2
               hover:px-6 cursor-pointer"
             >
-              <div>Launch dApp</div>
-              <MdOutlineOpenInNew />
-            </NavLink>
+              <div>Join Waitlist</div>
+
+              {/* <MdOutlineOpenInNew /> */}
+            </Link>
           </div>
         </aside>
       </div>
