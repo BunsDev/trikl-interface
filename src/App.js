@@ -30,7 +30,7 @@ function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
           <Routes>
             <Route path="/" element={<Home />} />
 
-            <Route path="/dapp" element={<DappHome />}>
+            <Route path="/dapp-beta-private" element={<DappHome />}>
               <Route path="new-post" element={<CreatePost />} />
               <Route path="explore" element={<AllCommunities />} />
               <Route path="my-communities" element={<MyCommunities />} />

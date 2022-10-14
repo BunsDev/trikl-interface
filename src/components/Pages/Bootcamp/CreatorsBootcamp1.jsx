@@ -7,48 +7,11 @@ import Bootcamp1achievingGoal from "../../../assets/bootcamp1achievingGoal.png";
 import Bootcamp1Clock from "../../../assets/bootcamp1Clock.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import PageLoader from "../../Elements/PageLoader";
+import SubhenduImg from "../Bootcamp/assets/SubhenduImg.png";
+import RiyaImg from "../Bootcamp/assets/riyaImg.jpg";
 
 const CreatorsBootcamp1 = () => {
-  // // const navigate = useNavigate();
-  const { Moralis, isInitialized } = useMoralis();
-  const [coach, setCoach] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-
-  //   const coaches = Moralis.Object.extend("Coaches");
-
-  //   const getCoachData = async () => {
-  //     const query = new Moralis.Query(coaches);
-  //     const coach = await query.find();
-  //     setCoach(coach);
-  //     console.log("This is test1 -------->", coach);
-  //   };
-
-  //   if (isInitialized) {
-  //     try {
-  //       getCoachData();
-  //     } catch (error) {
-  //       alert("Some Error Occured. ", error.message);
-  //     }
-  //   }
-
-  //   setIsLoading(false);
-  // }, []);
-
-  // const getQuery = async () => {
-
-  //   const coach = await query.find();
-  //   setCoach(coach);
-  //   console.log("This is test1 -------->", coach);
-  // };
-
-  return isLoading ? (
-    <div className="w-full py-5">
-      <PageLoader width="100%" color="#c489fb" />
-    </div>
-  ) : (
+  return (
     <div className="bg-BootcampBg grid grid-cols-12">
       <div className="w-full h-max top-0 fixed z-40 bg-BootcampContentBg/50 backdrop-blur-lg">
         <BootcampNav />
@@ -58,7 +21,7 @@ const CreatorsBootcamp1 = () => {
         <What />
         <Selection />
         <RegisterForm />
-        {/* <Coaches coach={coach} /> */}
+        <Coaches />
         <Dates />
       </div>
     </div>
@@ -246,25 +209,57 @@ const RegisterForm = () => {
   );
 };
 
-// const Coaches = ({ coach }) => {
-//   console.log("this is test--->>>", coach);
-//   // coach.map((eachCoach) => {
-//   //   return (
-//   //     <div className="flex flex-col-reverse md:flex-row justify-end items-center mb-40">
-//   //       <img />
-//   //       <h1> {eachCoach.attributes.Name}</h1>
-//   //       <h2> {eachCoach.attributes.Designation}</h2>
-//   //       <a href={eachCoach.attributes.Twitter}> twiietr </a>
-//   //     </div>
-//   //   );
-//   // });
-// };
+const Coaches = () => {
+  const coachData = [
+    {
+      id: 1,
+      img: SubhenduImg,
+      name: "Subhendu Panigrahi",
+      designation: "Co-Founder, OgClubDAO & Skillenza",
+    },
+    {
+      id: 1,
+      img: RiyaImg,
+      name: "Riya Yadav",
+      designation: "Content & Marketing Lead, CoinDCX",
+    },
+  ];
+
+  console.log(coachData);
+
+  return (
+    <div>
+      <h2 className="text-5xl text-BootcampText font-medium w-full text-center">
+        Coaches
+      </h2>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-20 pb-40 items-center justify-center">
+        {coachData.map((eachCoach) => (
+          <div
+            key={eachCoach.id}
+            className="flex flex-col gap-2 items-center justify-center"
+          >
+            <img
+              className="h-40 rounded-full drop-shadow-md"
+              src={eachCoach.img}
+            />
+            <h2>{eachCoach.name}</h2>
+            <sub>{eachCoach.designation}</sub>
+          </div>
+        ))}
+        <div className="text-triklGray text-center md:text-left">
+          More Coaches To Be Announced Soon...
+        </div>
+      </section>
+    </div>
+  );
+};
 
 const Dates = () => {
   return (
     <div className="flex flex-col-reverse md:flex-row justify-end items-center mb-40">
       <h2 className="text-5xl text-center md:text-left text-BootcampText font-medium pb-5 w-full">
-        Coaches & Dates to be announced soon!
+        Dates to be announced soon!
       </h2>
       <div className="md:w-1/3 pb-10 md:pb-0">
         <img
@@ -276,21 +271,3 @@ const Dates = () => {
     </div>
   );
 };
-
-// useEffect(() => {
-//   const getQuery = async () => {
-//     // setIsLoading(true);
-
-//     const query = new Moralis.Query("Coaches");
-//     const coaches = await query.find();
-//     console.log(coaches);
-
-//     // setCoach(coaches);
-
-//     // setIsLoading(false);
-//   };
-
-//   getQuery();
-// }, []);
-
-// console.log("CoachDetails = ", coach);
