@@ -157,14 +157,12 @@ const Selection = () => {
             Open to absolutely anyone to apply. However, priority will be given
             to those in the Web3 space
           </li>
-          <li className="list-disc">
-            NFTs and Merch will be given to participants. The fee for attending
-            the Bootcamp is $5 (the idea is to make sure only serious applicants
-            join)
-          </li>
+          <li className="list-disc">NFTs will be given to participants.</li>
           <li className="list-disc">The program is designed to be part-time</li>
           <li className="list-disc">
-            You must commit to attending each of the classes
+            You must commit to attending each of the classes. A refundable
+            deposit of $5 is required for attending the Bootcamp (This amount is
+            refundable if you have atleast 90% percent attendance)
           </li>
         </ul>
       </section>
