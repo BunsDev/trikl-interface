@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import EachPostPage from "./components/Pages/Dapp/UserPublicProfile/UserPosts/EachPostPage";
 import CreatorsBootcamp1 from "./components/Pages/Bootcamp/CreatorsBootcamp1";
+import Doodhwala from "./components/Pages/DoodhwalaXTrikl/Doodhwala";
 
 function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
   const serverUrl = useUrl;
@@ -39,6 +40,7 @@ function App({ useUrl, useAppId, network, isMetamaskInstalled }) {
               <Route path=":id" element={<UserProfile network={network} />} />
             </Route>
             <Route exact path="/bootcamp" element={<CreatorsBootcamp1 />} />
+            <Route exact path="/doodhwala" element={<Doodhwala />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
