@@ -8,10 +8,18 @@ import Confetti from "react-dom-confetti";
 import axios from "axios";
 
 const JoinDoodhwala = () => {
-  const [emailValue, setEmailValue] = useState("");
+  const [data, setData] = useState({
+    name: "",
+    telegram: "",
+    email: "",
+  });
+  // const [nameValue, setNameValue] = useState("");
+  // const [telegramValue, setTelegramValue] = useState("");
+  // const [emailValue, setEmailValue] = useState("");
   const [savingInProgress, setSavingInProgress] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
+  //  console.log(nameValue, telegramValue, emailValue);
   // CONFETTI
   const confettiConfig = {
     angle: 90,
@@ -27,30 +35,58 @@ const JoinDoodhwala = () => {
     colors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
   };
 
+  const handleChange = (e) =>
+    setData({ ...data, [e.target.name]: e.target.value });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSavingInProgress(true);
-    const data = {
-      Email: emailValue,
-    };
 
-    await axios({
-      method: "POST",
-      url: "https://sheetdb.io/api/v1/edftyguhshztw",
-      data: data,
-    })
-      .then(() => {
+    try {
+      const res = await fetch(
+        "https://sheet.best/api/sheets/812d7f1f-3894-4b6d-bb4d-7cc354b00042",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (res.ok) {
         setSavingInProgress(false);
         setIsSaved(true);
-        setEmailValue("");
+        setData({
+          name: "",
+          telegram: "",
+          email: "",
+        });
 
         setTimeout(() => {
           setIsSaved(false);
         }, 2000);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    // console.log("data ---->", data);
+    // await axios({
+    //   method: "POST",
+    //   url: "https://sheet.best/api/sheets/812d7f1f-3894-4b6d-bb4d-7cc354b00042",
+    //   data: data,
+    // })
+    //   .then(() => {
+    //     setSavingInProgress(false);
+    //     setIsSaved(true);
+    //     setEmailValue("");
+
+    //     setTimeout(() => {
+    //       setIsSaved(false);
+    //     }, 2000);
+    //   })
+    //   .catch((error) => {
+    //     alert(error.message);
+    //   });
   };
 
   return (
@@ -70,14 +106,30 @@ const JoinDoodhwala = () => {
               <li>
                 <form
                   id="waitlistForm_db"
-                  className="flex flex-col md:flex-row gap-5 w-full justify-center py-5 md:py-0"
+                  className="flex flex-col gap-5 w-full justify-center py-5 md:py-0"
                   onSubmit={handleSubmit}
                 >
                   <input
+                    type="text"
+                    name="name"
+                    value={data.name}
+                    onChange={handleChange}
+                    className="w-full h-12 md:h-auto text-center rounded-lg text-darkestBlue"
+                    placeholder="What should we call you?"
+                  />
+                  <input
+                    type="text"
+                    name="telegram"
+                    value={data.telegram}
+                    onChange={handleChange}
+                    className="w-full h-12 md:h-auto text-center rounded-lg text-darkestBlue"
+                    placeholder="Type Your Telegram ID Here!"
+                  />
+                  <input
                     type="email"
-                    name="data[email]"
-                    value={emailValue}
-                    onChange={(e) => setEmailValue(e.target.value)}
+                    name="email"
+                    value={data.email}
+                    onChange={handleChange}
                     className="w-full h-12 md:h-auto text-center rounded-lg text-darkestBlue"
                     placeholder="Type Your Email Here!"
                   />
