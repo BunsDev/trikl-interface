@@ -47,9 +47,9 @@ const Home = () => {
         <Footer />
       </div>
       <AllRightsReserved />
-      <div id="bootcampNotif">
+      {/* <div id="bootcampNotif">
         <NotificationBar />
-      </div>
+      </div> */}
     </div>
   );
 };
