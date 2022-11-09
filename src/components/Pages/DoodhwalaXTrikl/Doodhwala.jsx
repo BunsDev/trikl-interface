@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import doodhwala from "../../../assets/doodhwala.png";
 import { NavLink } from "react-router-dom";
 import JoinDoodhwala from "./JoinDoodhwala";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 const Doodhwala = () => {
   return (
@@ -9,12 +11,21 @@ const Doodhwala = () => {
       <div className="w-full h-max top-0 fixed z-40 bg-white/30 backdrop-blur-sm">
         <DoodhwalaNav />
       </div>
+
       <div className="col-span-8 col-start-3">
         <Hero />
       </div>
 
       <div className="col-span-8 col-start-3">
         <HowItWorks />
+      </div>
+
+      <div className="col-span-8 col-start-3">
+        <JoinDoodhwala />
+      </div>
+
+      <div className="col-span-8 col-start-3 pt-10">
+        <Footer />
       </div>
     </div>
   );
@@ -26,10 +37,19 @@ const DoodhwalaNav = () => {
   return (
     <div className="grid grid-cols-12 mx-auto">
       <div className="col-span-8 col-start-3 flex justify-between py-3">
-        <h1 className="font-poppins font-semibold text-BootcampText text-3xl">
-          <NavLink to="/" target="_blank">
+        <h1 className="font-poppins font-semibold text-gray text-xl md:text-3xl text-center md:text-left w-full">
+          <a
+            href="https://trikl.xyz/"
+            target="_blank"
+            className="font-poppins font-semibold text-triklBlue"
+          >
             TRIKL
-          </NavLink>
+          </a>
+
+          <span className="font-light"> + </span>
+          <a href="https://www.doodhwala.xyz/" target="_blank">
+            Doodhwala
+          </a>
         </h1>
       </div>
     </div>
@@ -38,7 +58,7 @@ const DoodhwalaNav = () => {
 
 const Hero = () => {
   return (
-    <div className="pt-20 flex flex-col justify-center items-center">
+    <div className="pt-28 flex flex-col justify-center items-center">
       <div className="bg-white rounded-xl drop-shadow-sm mb-10">
         <img
           className="object-contain p-2"
@@ -49,37 +69,20 @@ const Hero = () => {
       </div>
 
       <section className="text-center">
-        <h2 className="text-5xl md:text-6xl w-full text-black font-bold">
-          Doodhwala + TRIKL
+        <h2 className="text-base md:text-xl w-full text-black font-bold pb-4">
+          Doodhwala <span className="font-light">&</span>{" "}
+          <span className="text-triklBlue">TRIKL</span>{" "}
+          <span className="font-light">presents</span>
         </h2>
-        <div className="w-2/3 mx-auto pt-10">
+        <h2 className="text-4xl md:text-6xl w-full text-triklBlue font-bold">
+          Read & Earn Crypto
+        </h2>
+        <div className="w-full md:w-2/3 mx-auto pt-10">
           <span className="font-semibold">Doodhwala</span> brings to you taaza
           2-minute crypto news straight to your email and into your veins. With
           <span className="font-semibold"> TRIKL</span> you get rewarded for
           reading amazing blogs by Doodhwala.
         </div>
-
-        {/* <div>
-          <iframe
-            src="https://embeds.beehiiv.com/ff59d1bf-aaf2-4f37-adc4-8450af5d4aca"
-            id="doodhwalaSubIframe"
-            data-test-id="beehiiv-embed"
-            width="100%"
-            height="320"
-            frameBorder="0"
-            scrolling="no"
-          ></iframe>
-
-          <button>Click here to get telegram access</button>
-
-          <JoinDoodhwala />
-
-          <a href="https://t.me/trikle2e" target="_blank">
-            <p className="text-center md:text-right">
-              <span> Join </span> the telegram group now to participate!
-            </p>
-          </a>
-        </div> */}
       </section>
     </div>
   );
@@ -88,8 +91,8 @@ const Hero = () => {
 const HowItWorks = () => {
   return (
     <div className="text-center">
-      <h2 className="text-xl pt-10 pb-5 text-triklBlue">How It Works</h2>
-      <div className="flex justify-between gap-10">
+      <h2 className="text-xl pt-10 pb-5 text-triklBlue">How It Works?</h2>
+      <div className="flex flex-col md:flex-row justify-between gap-10">
         <div className="bg-white/50 py-5 w-full rounded-lg hover:bg-white transition-all duration-300 ease-in-out">
           <div className="font-semibold pb-2">1. Fill Form</div>
           <div className="px-5 text-gray-500 hover:text-black">
@@ -109,6 +112,52 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Footer = () => {
+  return (
+    <div className="text-black flex-col justify-center text-center">
+      <ul className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 md:pt-5 md:pb-5">
+        <li className="text-black">
+          <a
+            href="https://twitter.com/triklHQ"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <TwitterIcon fontSize="large" />
+          </a>
+        </li>
+        <div className="flex gap-10">
+          <li className="hover:text-triklBlue">
+            <a
+              href="https://twitter.com/triklHQ"
+              target="_blank"
+              rel="noreferrer"
+            >
+              @triklHQ
+            </a>
+          </li>
+          <li className="hover:text-triklBlue">
+            <a
+              href="https://twitter.com/DoodhwalaDaily"
+              target="_blank"
+              rel="noreferrer"
+            >
+              @DoodhwalaDaily
+            </a>
+          </li>
+        </div>
+      </ul>
+      <hr className="w-2/3 mx-auto mt-5 border-gray-400" />
+
+      <p className="/70 pt-5 px-5 md:px-0">
+        Suggestions/Queries? Drop us an email at{" "}
+        <a className="text-triklBlue" href="mailto:contact@trikl.xyz">
+          contact@trikl.xyz
+        </a>
+      </p>
     </div>
   );
 };
