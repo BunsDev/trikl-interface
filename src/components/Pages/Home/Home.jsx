@@ -47,9 +47,9 @@ const Home = () => {
         <Footer />
       </div>
       <AllRightsReserved />
-      {/* <div id="bootcampNotif">
+      <div id="bootcampNotif">
         <NotificationBar />
-      </div> */}
+      </div>
     </div>
   );
 };
@@ -58,13 +58,13 @@ export default Home;
 
 const NotificationBar = () => {
   return (
-    <div
-      className="fixed bottom-0 z-40
+    <NavLink to="/doodhwala" target="_blank">
+      <div
+        className="fixed bottom-0 z-40
     border-t-2 border-lightBlue/10 py-2 text-base font-semibold font-poppins uppercase tracking-widest text-center bg-lightAccent text-darkBlue px-20 mx-auto md:w-full"
-    >
-      <NavLink to="/bootcamp" target="_blank">
-        Register For Our Creators Bootcamp
-      </NavLink>
-    </div>
+      >
+        Join Our Exclusive Group & Earn Crypto
+      </div>
+    </NavLink>
   );
 };
