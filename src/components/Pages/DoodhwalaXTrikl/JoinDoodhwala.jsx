@@ -38,29 +38,21 @@ const JoinDoodhwala = () => {
     setSavingInProgress(true);
 
     try {
-      const res = await fetch(
-        "https://sheet.best/api/sheets/812d7f1f-3894-4b6d-bb4d-7cc354b00042",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      if (res.ok) {
-        setSavingInProgress(false);
-        setIsSaved(true);
-        setData({
-          name: "",
-          telegram: "",
-          email: "",
-        });
+      axios.post("http://localhost:4000/app/signup", data).then((res) => {
+        if (res.status === 200) {
+          setSavingInProgress(false);
+          setIsSaved(true);
+          setData({
+            name: "",
+            telegram: "",
+            email: "",
+          });
 
-        setTimeout(() => {
-          setIsSaved(false);
-        }, 2000);
-      }
+          setTimeout(() => {
+            setIsSaved(false);
+          }, 3000);
+        }
+      });
     } catch (e) {
       console.log(e);
     }
@@ -139,7 +131,7 @@ const JoinDoodhwala = () => {
 
                 {isSaved ? (
                   <div className="text-lightAccent text-base md:pt-4 flex gap-2 items-center justify-center">
-                    Saved Successfully!
+                    Welcome to Trikler's club!
                   </div>
                 ) : (
                   <div className="hidden"></div>
@@ -154,3 +146,31 @@ const JoinDoodhwala = () => {
 };
 
 export default JoinDoodhwala;
+
+// try {
+//   const res = await fetch(
+//     "https://sheet.best/api/sheets/812d7f1f-3894-4b6d-bb4d-7cc354b00042",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(data),
+//     }
+//   );
+//   if (res.ok) {
+//     setSavingInProgress(false);
+//     setIsSaved(true);
+//     setData({
+//       name: "",
+//       telegram: "",
+//       email: "",
+//     });
+
+//     setTimeout(() => {
+//       setIsSaved(false);
+//     }, 2000);
+//   }
+// } catch (e) {
+//   console.log(e);
+// }
