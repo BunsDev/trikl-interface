@@ -14,6 +14,7 @@ const JoinDoodhwala = () => {
   });
   const [savingInProgress, setSavingInProgress] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   // CONFETTI
   const confettiConfig = {
@@ -38,7 +39,7 @@ const JoinDoodhwala = () => {
     setSavingInProgress(true);
 
     try {
-      axios.post("http://localhost:4000/app/signup", data).then((res) => {
+      axios.post(backendURL, data).then((res) => {
         if (res.status === 200) {
           setSavingInProgress(false);
           setIsSaved(true);
